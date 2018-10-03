@@ -8,7 +8,7 @@ Platform: UWP (Windows 10 version 1803), Android 8.0+
 
 ## Repository contents:
 
-### [Documentation](documentations)<br>
+### [Documentation](documents)<br>
 1. Requirements
 
 
