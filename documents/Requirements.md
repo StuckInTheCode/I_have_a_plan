@@ -12,8 +12,6 @@
 	2.1. [Software Interfaces](#2.1) <br>
   	2.2. [User Interfaces](#2.2) <br>
   	2.3. [User Characteristics](#2.3) <br>
-  		2.3.1. [User Classes](#2.3.1) <br>
-  		2.3.2. [Application Audience](#2.3.2)<br>
   	2.4. [Assumptions and Dependencies](#2.4) <br>
 3. [System Requirements](#3.) <br>
   	3.1. [Functional Requirements](#3.1) <br>
@@ -227,31 +225,31 @@ Function | Requirements
 | :--- | :---
 Editing project information | The application should allow the user to edit the information of the selected project.
  
-##### 3.1.1.6\. Adding project tasks <a name="3.1.1.5"></a>
+##### 3.1.1.6\. Adding project tasks <a name="3.1.1.6"></a>
 <b>Description: </b> The user has the ability to add tasks to the selected project.
 
 Function | Requirements
 | :--- | :---
 Adding the task of the project  |  The application should allow the user to add tasks to the selected projects
 
-##### 3.1.1.7\. Editing project tasks <a name="3.1.1.5"></a>
+##### 3.1.1.7\. Editing project tasks <a name="3.1.1.7"></a>
 <b>Description: </b> The user has the ability to edit tasks of the selected project.
 
 Function | Requirements
 | :--- | :---
 Editing the task of the project| The application should allow the user to change the task information of the selected project.
 
-##### 3.1.1.8\. Deleting project tasks <a name="3.1.1.5"></a>
+##### 3.1.1.8\. Deleting project tasks <a name="3.1.1.8"></a>
 <b>Description: </b> The user has the ability to delete tasks of the selected project.
 
 Function | Requirements
 | :--- | :---
 Deleting the task of the project | The application should allow the user to delete the task of the selected project.
 
-##### 3.1.1.9\.   Сustomize notifications<a name="3.1.1.5"></a>
+##### 3.1.1.9\.   Сustomize notifications<a name="3.1.1.9"></a>
 <b>Description: </b> The user has the ability to customize the format and the time of the notifications.
 Function | Requirements
-| :--- | :---|
+| :--- | :---
 |Change notification format| The application should allow the user to edit format of the notification (notification with sound, with vibration, with sound and vibration,with no sound)|
 |Change the working time| The application should allow the user to set the time when notifications start and when they finish|
 |Change the period of notification|The application should allow the user to configure the period of notification|
