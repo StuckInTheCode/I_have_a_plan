@@ -248,6 +248,7 @@ Deleting the task of the project | The application should allow the user to dele
 
 ##### 3.1.1.9\.   Сustomize notifications<a name="3.1.1.9"></a>
 <b>Description: </b> The user has the ability to customize the format and the time of the notifications.
+
 Function | Requirements
 | :--- | :---
 |Change notification format| The application should allow the user to edit format of the notification (notification with sound, with vibration, with sound and vibration,with no sound)|
