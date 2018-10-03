@@ -34,7 +34,7 @@
 ## 1\. Introduction <a name = "1"></a>
 
 ### 1.1\. Purpose <a name = "1.1"></a>
-This document contains functional and non-functional requirements for the cross-platform application "Have a plan!" for Android 8.0 and higher and UWP (target platform - Windows 10, version 1803) . This document is intended for a team that will implement and verify the correctness of the application.
+This document contains functional and non-functional requirements for the cross-platform application "Have a plan!" for Android 8.0 and higher and UWP (target platform - Windows 10, version 1803). This document is intended for a team that will implement and verify the correctness of the application.
 
 ### 1.2\. Business requirements<a name = "1.2"></a>
 
@@ -42,7 +42,7 @@ This document contains functional and non-functional requirements for the cross-
 Specialists in various fields of activity and students create various projects, work on which takes a large amount of time. For productive work on such projects it is necessary to draw up and adhere to a work plan. And often, when there are a lot of projects, people are distracted by less important tasks and misplaced their time.
 
 #### 1.2.2\. Business opportunities <a name = "1.2.2"></a>
-Many people, who are planning to work on a certain project, want an application that will have the capacity to plan the execution of project tasks and notify the user of the need for work. Such software products allow you to free up more time for direct work on tasks, as well as encourage the user to perform them. The designed user interface should allow the application to be used by people with minimal technical knowledge.
+Many people, who are planning to work on a certain project, want an application that will have the capacity to plan the execution of project tasks and notify the user of the need for work. Such software products allow user to free up more time for direct work on tasks, as well as encourage the user to perform them. The designed user interface should allow the application to be used by people with minimal technical knowledge.
 
 ### 1.3\. Analogues<a name = "1.3"></a>
 Main differences from analogues – a small set of functions, displaying the duration of the project in the calendar of the application, the ability to notify the user<br>
