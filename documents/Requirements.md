@@ -51,7 +51,7 @@ Main differences from analogues – a small set of functions, displaying the dur
 
 	GanttMan is a tool for planning and managing projects on your mobile device. Only daily planning is supported to ensure compatibility with the GanttProject application.
 	- Not user friendly timeline view
-	- Don't have notification feature
+	- Doesn't have notification feature
 
 - <b> Wrike by [Wrike inc.] https://play.google.com/store/apps/details?id=com.wrike</b><br> 
 
@@ -62,7 +62,7 @@ Main differences from analogues – a small set of functions, displaying the dur
 - <b>Progress of project by [chomoranma] https://play.google.com/store/apps/details?id=jp.moo.myworks.progressofproject</b><br> 
 
 	Simple project's progress management apps. The achievement rate of project is calculated automatically.  
-	- Don't have notification feature
+	- Doesn't have notification feature
 
 ## 2\. User Requirements <a name = "2"></a>
 
