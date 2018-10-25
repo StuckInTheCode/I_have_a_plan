@@ -215,7 +215,7 @@ Activity Diagrams is represented [here](ActivityDiagram/Activity.md)<br>
 
 # 3\. Sequence Diagram <a name = "3"></a>
 Original image is represented [here]<br>(https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/SequenceDiagram/SequenceDiagram.png)
-![Sequence](SequenceDiagram/Sequence_diagram.png)
+![Sequence](SequenceDiagram/SequenceDiagram.png)
 # 4\. State Machine Diagram<a name = "4"></a>
 Original image is represented [here]<br>(https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/StateMachineDiagram/StateMachineDiagram.png)
 ![State](StateMachineDiagram/StateMachineDiagram.png)
