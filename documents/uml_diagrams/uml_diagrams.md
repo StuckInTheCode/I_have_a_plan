@@ -60,7 +60,7 @@ User | A human that use the application
 
 ### 1.2.2 Edit the project information <a name = "1.2.2"></a>
 
-**Description.** Edit the information of the current project.
+**Description.** Edit the information of the current project.   
 **Precondition.** User pressed on the edit button on the project page of the application.  
 **Main thread.**
 1. Application show the "Editing project" window.
@@ -117,7 +117,7 @@ User | A human that use the application
 
 ### 1.2.5 Edit project tasks <a name = "1.2.5"></a>
 
-**Description.** Edit the information of the project task.
+**Description.** Edit the information of the project task. 
 **Precondition.** User pressed on the edit button on the task widget on the project page of the application.  
 **Main thread.**
 1. Application show the "Editing task" window.
@@ -214,21 +214,21 @@ User | A human that use the application
 Activity Diagrams is represented [here](ActivityDiagram/Activity.md)<br>
 
 # 3\. Sequence Diagram <a name = "3"></a>
-Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/SequenceDiagram/SequenceDiagram.png)
-![Sequence](Sequence_diagram/Sequence_diagram.png)
+Original image is represented [here]<br>(https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/SequenceDiagram/SequenceDiagram.png)
+![Sequence](SequenceDiagram/Sequence_diagram.png)
 # 4\. State Machine Diagram<a name = "4"></a>
-Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/StateMachineDiagram/StateMachineDiagram.png)
+Original image is represented [here]<br>(https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/StateMachineDiagram/StateMachineDiagram.png)
 ![State](StateMachineDiagram/StateMachineDiagram.png)
 
 # 5\. Class Diagram <a name = "5"></a>
-Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/ClassDiagram/ClassDiagram.png)
+Original image is represented [here]<br>(https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/ClassDiagram/ClassDiagram.png)
 ![Class](ClassDiagram/ClassDiagram.png)
 
 # 6\. Component Diagram <a name = "6"></a>
-![Component](ComponentDiagrams/ComponentDiagram.png)
+![Component](ComponentDiagram/ComponentDiagram.png)
 
 # 7\. Deployment Diagram <a name = "7"></a>
-![Deployment](DeploymentDiagrams/DeploymentDiagram.png)
+![Deployment](DeploymentDiagram/DeploymentDiagram.png)
 
 
 > Written with [StackEdit](https://stackedit.io/).
