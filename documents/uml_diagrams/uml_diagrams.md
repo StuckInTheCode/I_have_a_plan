@@ -2,29 +2,38 @@
 
 #### [Glossary](glossary.md)
 
-1. [Activity Diagram](#1)<br>
-2. [Use Case Diagram](#2)<br>
-2.1. [Actors](#1.1)<br>
-2.2. [Use Cases](#1.2)<br>
-4. [Sequence Diagram](#3)<br>
-5. [State Machine Diagram](#4)<br>
-6. [Class Diagram](#5)<br>
-7. [Component Diagram](#6)<br>
-8. [Deployment Diagram](#7)<br>
+1. [Use Case Diagram](#2)<br>
+	1.1. [Actors](#1.1)<br>
+	1.2. [Use Cases](#1.2)<br>
+		1.2.1 [Add the project](#1.2.1)<br>
+		1.2.2 [Edit the project information](#1.2.2)<br>
+		1.2.3 [Delete the project](#1.2.3)<br>
+		1.2.4 [Add project tasks](#1.2.4)<br>
+		1.2.5 [Edit project tasks](#1.2.5)<br>
+		1.2.6 [Delete project tasks](#1.2.6)<br> 
+		1.2.7 [Change the notification type](#1.2.7)<br>
+		1.2.8 [Change the notification period](#1.2.8)<br>
+		1.2.9 [Change the end of the working time](#1.2.9)<br>
+		1.2.10 [Change the start of the working time](#1.2.10)<br>
+		1.2.11 [Done daily task](#1.2.11)<br>
+2. [Activity Diagrams](#2)<br>
+3. [Sequence Diagram](#3)<br>
+4. [State Machine Diagram](#4)<br>
+5. [Class Diagram](#5)<br>
+6. [Component Diagram](#6)<br>
+7. [Deployment Diagram](#7)<br>
 
-# 1\. Activity Diagram <a name = "1"></a>
+# 1\. Use Case Diagram  <a name = "1"></a>
 
-# 2\. Use Case Diagram  <a name = "2"></a>
-
-## 2.1\. Actors  <a name = "1.1"></a><br>
+## 1.1\. Actors  <a name = "1.1"></a><br>
 Actor | Description
 | :-- | :--
 User | A human that use the application
 
-## 2.2\. Use Cases  <a name = "1.2"></a><br>
-<a name="sign_in_to_the_app"/>
+## 1.2\. Use Cases  <a name = "1.2"></a><br>
+<a/>
 
-## 2.2.1 Add the project <a name = "2.2.1"></a>
+### 1.2.1 Add the project <a name = "1.2.1"></a>
 
 **Description.** Add the project to the list of users projects.  
 **Precondition.** User pressed on the add button on the main page of the application.  
@@ -46,8 +55,10 @@ User | A human that use the application
 **Alternate thread A2**
 1. Show message about not filled fields;
 2. When message is disappeared, then return to the 3 step of the main thread;
+
 <a/> 
-## 2.2.2 Edit the project information <a name = "2.2.2"></a>
+
+### 1.2.2 Edit the project information <a name = "1.2.2"></a>
 
 **Description.** Edit the information of the current project.
 **Precondition.** User pressed on the edit button on the project page of the application.  
@@ -64,9 +75,10 @@ User | A human that use the application
 **Alternate thread A1**
 1. Show message about not filled fields;
 2. When message is disappeared, then return to the 2 step of the main thread;
-<a name="log_in_to_your_account"/>
 
-## 2.2.3 Delete the project <a name = "2.2.3"></a>
+<a/>
+
+### 1.2.3 Delete the project <a name = "1.2.3"></a>
 
 **Description.** Delete the project from the users project list.  
 **Precondition.** User pressed on the delete button on the project page of the application.  
@@ -76,9 +88,10 @@ User | A human that use the application
 3. User pressed on the ok button;
 4. Project deleted from the project list;
 5.  Use case ends.
-<a name="rendering_diagram"/>
 
-## 2.2.4 Add project tasks <a name = "2.2.4"></a>
+<a/>
+
+### 1.2.4 Add project tasks <a name = "1.2.4"></a>
 **Description.** Add the task to the task list of the current project.  
 **Precondition.** User pressed on the add button on the project page of the application.  
 **Main thread.**
@@ -99,9 +112,10 @@ User | A human that use the application
 **Alternate thread A2**
 1. Show message about not filled fields;
 2. When message is disappeared, then return to the 3 step of the main thread;
-<a name="users_config"/>
 
-## 2.2.5 Edit project tasks <a name = "2.2.5"></a>
+<a/>
+
+### 1.2.5 Edit project tasks <a name = "1.2.5"></a>
 
 **Description.** Edit the information of the project task.
 **Precondition.** User pressed on the edit button on the task widget on the project page of the application.  
@@ -118,9 +132,10 @@ User | A human that use the application
 **Alternate thread A1**
 1. Show message about not filled fields;
 2. When message is disappeared, then return to the 2 step of the main thread;
-<a name="log_in_to_your_account"/>
 
-## 2.2.6 Delete project tasks <a name = "2.2.6"></a>
+<a/>
+
+### 1.2.6 Delete project tasks <a name = "1.2.6"></a>
 
 **Description.** Delete the task from the project task list.  
 **Precondition.** User pressed on the delete button on the task widget on the project page of the application.  
@@ -130,20 +145,21 @@ User | A human that use the application
 3. User pressed on the ok button;
 4. Task deleted from the task list;
 5.  Use case ends.
-<a name="rendering_diagram"/>
 
-## 2.2.7 Change the notification format <a name = "2.2.7"></a>
+<a/>
 
-**Description.** Change the format of the notification.  
+### 1.2.7 Change the notification type<a name = "1.2.7"></a>
+
+**Description.** Change the type of the notification.  
 **Precondition.** Options window is open.   
 **Main thread.**
-1. User change the state of the notification format ComboBox;
-2. Set the new notification format;
+1. User change the state of the notification type ComboBox;
+2. Set the new notification type;
 3. Use case ends.
 
-<a name="sign_out_of_your_account"/>
+<a/>
 
-## 2.2.8 Change the notification period <a name = "2.2.8"></a>
+### 1.2.8 Change the notification period <a name = "1.2.8"></a>
 
 **Description.** Change the period of the notification.  
 **Precondition.** Options window is open.   
@@ -152,10 +168,9 @@ User | A human that use the application
 2. Set the new notification period;
 3. Use case ends.
 
+<a/>
 
-<a name="sign_out_of_your_account"/>
-
-## 2.2.9 Change the end of the working time <a name = "2.2.9"></a>
+### 1.2.9 Change the end of the working time <a name = "1.2.9"></a>
 
 
 **Description.** Change the end of the working time.  
@@ -165,9 +180,9 @@ User | A human that use the application
 2. Set the new notification end time;
 3. Use case ends.
 
-<a name="sign_out_of_your_account"/>
+<a/>
 
-## 2.2.10 Change the start of the working time <a name = "2.2.10"></a>
+### 1.2.10 Change the start of the working time <a name = "1.2.10"></a>
 
 **Description.** Change the start of the working time.  
 **Precondition.** Options window is open.   
@@ -176,9 +191,9 @@ User | A human that use the application
 2. Set the new notification start time;
 3. Use case ends.
 
-<a name="sign_out_of_your_account"/>
+<a/>
 
-## 2.2.11 Done daily task <a name = "2.2.11"></a>
+## 1.2.11 Done daily task <a name = "1.2.11"></a>
 
 
 **Description.** Checked the performence of the daily task.  
@@ -190,21 +205,30 @@ User | A human that use the application
 4. Use case ends.
 
 **Alternate thread A1**
-5. Decrease percentage of days with this task finished;
-6. Use case ends.
+1. Decrease percentage of days with this task finished;
+2. Use case ends.
 
-<a name="sign_out_of_your_account"/>
+<a/>
 
+# 2\. Activity Diagrams  <a name = "2"></a>
+Activity Diagrams is represented [here](ActivityDiagram/Activity.md)<br>
 
 # 3\. Sequence Diagram <a name = "3"></a>
-
+Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/SequenceDiagram/SequenceDiagram.png)
+![Sequence](Sequence_diagram/Sequence_diagram.png)
 # 4\. State Machine Diagram<a name = "4"></a>
+Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/StateMachineDiagram/StateMachineDiagram.png)
+![State](StateMachineDiagram/StateMachineDiagram.png)
 
 # 5\. Class Diagram <a name = "5"></a>
+Original image is represented [here](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/ClassDiagram/ClassDiagram.png)
+![Class](ClassDiagram/ClassDiagram.png)
 
 # 6\. Component Diagram <a name = "6"></a>
+![Component](ComponentDiagrams/ComponentDiagram.png)
 
 # 7\. Deployment Diagram <a name = "7"></a>
+![Deployment](DeploymentDiagrams/DeploymentDiagram.png)
 
 
 > Written with [StackEdit](https://stackedit.io/).
