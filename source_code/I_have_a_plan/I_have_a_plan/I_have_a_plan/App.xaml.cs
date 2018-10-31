@@ -1,4 +1,5 @@
 ﻿using System;
+using I_have_a_plan.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace I_have_a_plan
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage ( new MainAppPage());
         }
 
         protected override void OnStart()
