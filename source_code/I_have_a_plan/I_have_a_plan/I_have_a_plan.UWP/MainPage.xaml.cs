@@ -23,5 +23,15 @@ namespace I_have_a_plan.UWP
 
             LoadApplication(new I_have_a_plan.App());
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UserControl_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -3,11 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="I_have_a_plan.Views.MainAppPage" Title="Main">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="top">
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button Text="To the project" Command="{Binding Go}" />
+            <Label Text="{Binding Name2}" />
+            <Entry Text="{Binding Name2}" FontSize="Medium" />
+            <Button Text="Добавить" Command="{Binding add}" CommandParameter="{Binding}" />
+            <ListView x:Name = "Hi" ItemsSource="{Binding Projects, Mode=TwoWay}"
+                      SelectedItem="{Binding selectedProject}">
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout x:Name = "bottom">
+                                <Label Text="{Binding Name2}" FontSize="Medium" />
+                                <Label Text="deadline" FontSize="Small" />
+                                <Label Text="{Binding beginning}" FontSize="Small" />
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
