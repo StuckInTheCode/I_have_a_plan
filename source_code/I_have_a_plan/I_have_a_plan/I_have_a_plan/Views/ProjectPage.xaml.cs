@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using I_have_a_plan.ViewModels;
 
 namespace I_have_a_plan.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProjectPage : ContentPage
 	{
-		public ProjectPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+        public ProjectViewModel ViewModel { get; private set; }
+        public ProjectPage(ProjectViewModel vm)
+        {
+            InitializeComponent();
+            ViewModel = vm;
+            this.BindingContext = ViewModel;
+        }
+    }
 }

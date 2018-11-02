@@ -20,7 +20,11 @@ namespace I_have_a_plan.Models
         }
         public void editProject(Project curProject)
         {
+            //Project temp;
+            foreach ( var v in projectList)
+            {
 
+            }
         }
         public void deleteProject(Project curProject)
         {
