@@ -12,41 +12,70 @@ namespace I_have_a_plan.ViewModels
 {
     public class MainAppViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Project> Projects { get ; set; }
+        public ObservableCollection<ProjectViewModel> Projects { get ; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public INavigation Navigation { get; set; }
-        public ICommand add { protected set; get; }
-        public ICommand Go { protected set; get; }
-        string Name2 { get; set; }
-        Project selectedProject;
+        public ICommand AddCommand { protected set; get; }
+        public ICommand SaveCommand { protected set; get; }
+        public ICommand BackCommand { protected set; get; }
+        //public ICommand ProjectCommand { protected set; get; }
+        String name2 { get; set;}
+        ProjectViewModel selectedProject;
+        public ProjectViewModel SelectedProject
+        {
+            get { return selectedProject; }
+            set
+            {
+                if (selectedProject != value)
+                {
+                    selectedProject = value;
+                    OnPropertyChanged("SelectedProject");
+                }
+            }
+        }
         public MainAppViewModel()
         {
-            Projects = new ObservableCollection<Project>();
-            Name2 = "123";
-            Project project = new Project() ;// = projectObject as String;
-            //if (friend != null && friend.IsValid)
-            //{
+            Projects = new ObservableCollection<ProjectViewModel>();
+            selectedProject = new ProjectViewModel();
+            ProjectViewModel project = new ProjectViewModel() ;// = projectObject as String;
             Projects.Add(project);
-            OnPropertyChanged("Projects");
-            //}
-            //Back();
-            Go = new Command(toTheProject);
-            add = new Command(addProject);
+            AddCommand = new Command(AddProject);
+            SaveCommand = new Command(SaveProject);
+            BackCommand = new Command(Back);
+            //ProjectCommand = new Command(toTheProject);
         }
 
-        private void addProject()
+        private void AddProject()
         {
-            Project project = new Project();
-            Projects.Add(project);
-            OnPropertyChanged("Projects");
-            
-            //OnPropertyChanged("Name2");
-            //throw new NotImplementedException();
+            Navigation.PushAsync(new AddingProjectPage(new ProjectViewModel() { ListViewModel = this }));
         }
-        private void toTheProject(object obj)
+        private void Back()
         {
-            Navigation.PushAsync(new ProjectPage());
-            //throw new NotImplementedException();
+            Navigation.PopAsync();
+        }
+        private void SaveProject(object projectObject)
+        {
+            ProjectViewModel project = projectObject as ProjectViewModel;
+            if (project != null && project.IsValid)
+            {
+                project.Trim();
+                Projects.Add(project);
+                Back();
+            }
+            //else
+            //{
+            //
+            //}
+            
+        }
+        //private void toTheProject(object obj)
+        //{
+        //    Navigation.PushAsync(new ProjectPage(obj as ProjectViewModel));
+        //}
+
+        private void toTheProject(object sender)
+        {
+            Navigation.PushAsync(new ProjectPage(selectedProject));
         }
         protected void OnPropertyChanged(string propName)
         {

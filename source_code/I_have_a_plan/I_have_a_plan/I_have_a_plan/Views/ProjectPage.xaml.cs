@@ -20,5 +20,10 @@ namespace I_have_a_plan.Views
             ViewModel = vm;
             this.BindingContext = ViewModel;
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.Tasks[0].Test++;
+        }
     }
 }

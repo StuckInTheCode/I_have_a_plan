@@ -6,12 +6,15 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace I_have_a_plan
 {
+    
     public partial class App : Application
-    {
+    { 
+
+        public readonly int MAXCOUNT = 50;
         public App()
         {
             InitializeComponent();
-
+            MAXCOUNT = 50;
             MainPage = new NavigationPage ( new MainAppPage());
         }
 

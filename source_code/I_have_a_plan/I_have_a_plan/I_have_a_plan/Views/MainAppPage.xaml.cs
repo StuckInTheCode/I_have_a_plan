@@ -18,6 +18,16 @@ namespace I_have_a_plan.Views
 			InitializeComponent ();
             ViewModel = new MainAppViewModel() { Navigation = this.Navigation };
             BindingContext = ViewModel;
+
         }
-	}
+
+        private void showAlert(object sender, EventArgs e) {
+            DisplayAlert("Alert", "You have been alerted", "OK");
+        }
+
+        private void projectList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            Navigation.PushAsync(new ProjectPage(ViewModel.SelectedProject));
+        }
+    }
 }

@@ -12,22 +12,39 @@ namespace I_have_a_plan.Models
         public Int32 taskCount;
         public string deadline { get; set; }
         public string beginning { get; set; }
-        public Int32 percentageComplited;
+        public double percentageComplited;
         public string info;
 
         public Project()
         {
+            Random rand = new Random();
+            id = rand.Next();
+            deadline = "01.12.2018";
+            beginning = "01.09.2018";
+            info = "Just test";
             taskList = new List<Task>();
-            //Task task1 = new Task();
-            //task1.id = 123;
-            //task1.name = "123";
-            
-            //addTask(task1);
+            Task task1 = new Task();
+            task1.id = 123;
+            task1.name = "123";
+            DateTime currentDate = DateTime.Now;
+
+            int day, month, year;
+            Int32.TryParse(beginning.Substring(0, 2), out day);
+            Int32.TryParse(beginning.Substring(3, 2), out month);
+            Int32.TryParse(beginning.Substring(6, 4), out year);
+            DateTime beginningDate = new DateTime(year, month, day);
+            Int32.TryParse(deadline.Substring(0, 2), out day);
+            Int32.TryParse(deadline.Substring(3, 2), out month);
+            Int32.TryParse(deadline.Substring(6, 4), out year);
+            DateTime deadlineDate = new DateTime(year, month, day);
+            percentageComplited = (currentDate.Subtract(beginningDate).TotalDays / deadlineDate.Subtract(beginningDate).TotalDays);
+            addTask(task1);
         }
 
         public void addTask(Task newTask)
         {
             taskList.Add(newTask);
+            taskCount++;
 
         }
         public void editTask(Task newTask)
@@ -41,6 +58,7 @@ namespace I_have_a_plan.Models
         public void deleteTask(Task curTask)
         {
             taskList.Remove(curTask);
+            taskCount--;
         }
         /// <summary>
         /// check is taskCount less than MAXCOUNT
