@@ -11,6 +11,7 @@ namespace I_have_a_plan.ViewModels
     public class ProjectViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<TaskViewModel> Tasks { get; set; }
         MainAppViewModel lvm;
 
         public Project Project { get; private set; }
@@ -18,6 +19,9 @@ namespace I_have_a_plan.ViewModels
         public ProjectViewModel()
         {
             Project = new Project();
+            Tasks = new ObservableCollection<TaskViewModel>();
+            TaskViewModel task = new TaskViewModel();
+            Tasks.Add(task);
         }
 
         public MainAppViewModel ListViewModel
@@ -45,6 +49,19 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
+        public double PercentageComplited
+        {
+            get { return Project.percentageComplited; }
+            protected set
+            {
+                if (Project.percentageComplited != value)
+                {
+                    Project.percentageComplited = value;
+                    OnPropertyChanged("PercentageComplited");
+                }
+            }
+        }
+
         public string Deadline
         {
             get { return Project.deadline; }
@@ -70,15 +87,36 @@ namespace I_have_a_plan.ViewModels
             }
         }
 
+        public string Info
+        {
+            get { return Project.info; }
+            set
+            {
+                if (Project.info != value)
+                {
+                    Project.info = value;
+                    OnPropertyChanged("Info");
+                }
+            }
+        }
+
         public bool IsValid
         {
             get
             {
-                return ((!string.IsNullOrEmpty(Name.Trim())) ||
-                    (!string.IsNullOrEmpty(Deadline.Trim())) ||
-                    (!string.IsNullOrEmpty(Beginning.Trim())));
+                return ((!string.IsNullOrEmpty(Name)) ||
+                    (!string.IsNullOrEmpty(Deadline)) ||
+                    (!string.IsNullOrEmpty(Beginning)));
             }
         }
+
+        internal void Trim()
+        {
+            Name.Trim();
+            Deadline.Trim();
+            Beginning.Trim();
+        }
+
         protected void OnPropertyChanged(string propName)
         {
             if (PropertyChanged != null)
