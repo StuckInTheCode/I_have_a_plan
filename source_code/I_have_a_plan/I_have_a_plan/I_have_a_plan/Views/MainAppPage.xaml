@@ -2,30 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:I_have_a_plan.Views"
-             x:Class="I_have_a_plan.Views.MainAppPage" Title="Main">
+             x:Class="I_have_a_plan.Views.MainAppPage" Title="Your projects">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Add project" Order="Primary" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}"/>
+        <ToolbarItem Name="Calendar" Order="Primary" Icon="Xamarin.png" Priority="1" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout x:Name="top">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding Name2}" />
-            <Entry Text="{Binding Name2}" FontSize="Medium" />
-            <Button x:Name ="AddButton" Text="Добавить" Command="{Binding AddCommand}" CommandParameter="{Binding}"/>
             <ListView x:Name = "projectList" ItemsSource="{Binding Projects}" HasUnevenRows="True"
                        SelectedItem="{Binding SelectedProject}" ItemTapped ="projectList_ItemTapped">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout>
-                                <Label Text="{Binding Name}" />
-                                <ProgressBar Progress="{Binding PercentageComplited}" Scale="5"  BackgroundColor="Aqua"/>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" />
+                                    <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                    <ProgressBar Progress="{Binding PercentageComplited}" VerticalOptions="Center" WidthRequest="100" BackgroundColor="Aqua"/>
                                 </StackLayout>
                             </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>

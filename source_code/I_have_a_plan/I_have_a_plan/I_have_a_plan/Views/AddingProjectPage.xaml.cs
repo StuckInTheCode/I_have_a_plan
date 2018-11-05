@@ -18,11 +18,12 @@ namespace I_have_a_plan.Views
             InitializeComponent();
             ViewModel = vm;
             this.BindingContext = ViewModel;
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-
+            //trying to use the messagingcenter to show the dialog
+            MessagingCenter.Subscribe<MainAppViewModel>(this, "Not all field filled", (sender) =>
+            {
+                //get the message from viewmodel
+                DisplayAlert(" ", "Not all field filled", "OK");
+            });
         }
     }
 }
