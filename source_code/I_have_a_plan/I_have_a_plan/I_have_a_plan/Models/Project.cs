@@ -4,7 +4,7 @@ using System.Text;
 
 namespace I_have_a_plan.Models
 {
-    public class Project
+    public class Project 
     {
         public string name { get; set; }
         public Int64 id;
@@ -17,8 +17,10 @@ namespace I_have_a_plan.Models
 
         public Project()
         {
+            //test project 
             Random rand = new Random();
             id = rand.Next();
+            name = "Project";
             deadline = "01.12.2018";
             beginning = "01.09.2018";
             info = "Just test";
@@ -29,6 +31,7 @@ namespace I_have_a_plan.Models
             DateTime currentDate = DateTime.Now;
 
             int day, month, year;
+            // calculate the duration of the project
             Int32.TryParse(beginning.Substring(0, 2), out day);
             Int32.TryParse(beginning.Substring(3, 2), out month);
             Int32.TryParse(beginning.Substring(6, 4), out year);
@@ -37,9 +40,25 @@ namespace I_have_a_plan.Models
             Int32.TryParse(deadline.Substring(3, 2), out month);
             Int32.TryParse(deadline.Substring(6, 4), out year);
             DateTime deadlineDate = new DateTime(year, month, day);
+            //convert days until project finish to the persentage
             percentageComplited = (currentDate.Subtract(beginningDate).TotalDays / deadlineDate.Subtract(beginningDate).TotalDays);
             addTask(task1);
         }
+
+        //create a copy of the project
+        public Project(Project copy)
+        {
+            name = copy.name;
+            id = copy.id;
+            taskList = copy.taskList;
+
+            taskCount = copy.taskCount;
+            deadline = copy.deadline;
+            beginning = copy.beginning;
+
+            percentageComplited = copy.percentageComplited;
+            info = copy.info;
+    }
 
         public void addTask(Task newTask)
         {

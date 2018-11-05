@@ -18,7 +18,13 @@ namespace I_have_a_plan.Views
         {
             InitializeComponent();
             ViewModel = vm;
+            ViewModel.Navigation = this.Navigation;
             this.BindingContext = ViewModel;
+            MessagingCenter.Subscribe<ProjectViewModel>(this, "Project cant have empty fields", (sender) => {
+                // do something whenever the "Hi" message is sent
+                // using the 'arg' parameter which is a string
+                DisplayAlert(" ", "Project cant have empty fields", "OK");
+            });
         }
 
         private void Button_Clicked(object sender, EventArgs e)

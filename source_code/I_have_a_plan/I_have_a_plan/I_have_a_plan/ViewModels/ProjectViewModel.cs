@@ -6,12 +6,16 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.ComponentModel;
+using I_have_a_plan.Views;
 namespace I_have_a_plan.ViewModels
 {
     public class ProjectViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<TaskViewModel> Tasks { get; set; }
+        public INavigation Navigation { get; set; }
+        public ICommand EditCommand { protected set; get; }
+        public ICommand SaveCommand { protected set; get; }
         MainAppViewModel lvm;
 
         public Project Project { get; private set; }
@@ -19,6 +23,17 @@ namespace I_have_a_plan.ViewModels
         public ProjectViewModel()
         {
             Project = new Project();
+            Tasks = new ObservableCollection<TaskViewModel>();
+            //test task
+            TaskViewModel task = new TaskViewModel();
+            Tasks.Add(task);
+            EditCommand = new Command(EditProject);
+            SaveCommand = new Command(SaveChanges);
+        }
+
+        public ProjectViewModel(Project project)
+        {
+            Project = project;
             Tasks = new ObservableCollection<TaskViewModel>();
             TaskViewModel task = new TaskViewModel();
             Tasks.Add(task);
@@ -117,6 +132,21 @@ namespace I_have_a_plan.ViewModels
             Beginning.Trim();
         }
 
+        private void EditProject()
+        {
+            Navigation.PushAsync(new EditingProjectPage(new EditingProjectViewModel() { ViewModel = this , Project = new Project( this.Project)}));
+
+        }
+        private void SaveChanges (object projectObject)
+        {
+            EditingProjectViewModel viewModel = projectObject as EditingProjectViewModel;
+            Name = viewModel.Name;
+            Beginning = viewModel.Beginning;
+            Deadline = viewModel.Deadline;
+            MessagingCenter.Send<ProjectViewModel>(this, "Project cant have empty fields");
+            Navigation.PopAsync();
+
+        }
         protected void OnPropertyChanged(string propName)
         {
             if (PropertyChanged != null)

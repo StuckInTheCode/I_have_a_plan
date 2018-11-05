@@ -2,17 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:I_have_a_plan.Views"
-             x:Class="I_have_a_plan.Views.ProjectPage">
+             x:Class="I_have_a_plan.Views.ProjectPage"
+             Title="{Binding Name}">
     <ContentPage.Content>
         <StackLayout>
             <StackLayout x:Name="friendStack">
-                <Label Text="{Binding Name}" FontSize="Medium" />
-                <Label Text="{Binding Deadline}" FontSize="Medium" />
-                <Label Text="{Binding Beginning}" FontSize="Medium" />
-                <Label Text="{Binding Info}" FontSize="Small" />
-               
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Beginning}" FontSize="Medium" />
+                    <Label Text="{Binding Info}" FontSize="Small" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{Binding Deadline}" FontSize="Medium" />
+                    <Button Command="{Binding EditCommand}"/>
+                </StackLayout>
             </StackLayout>
-            <StackLayout x:Name="taskStack">
+            <StackLayout x:Name="taskStack" HorizontalOptions="Center">
                 <ListView x:Name = "projectList" ItemsSource="{Binding Tasks}" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -21,14 +25,15 @@
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding Name}" />
                                         <Button Clicked="Button_Clicked"/>
-                                        <views:ProgressIndicator Value="3" MaxValue="10"/>
+                                        <ProgressBar Progress="{Binding PercentageFinished}"/>
                                     </StackLayout>
                                 </views:CustomCell.HeaderView>
                                 <views:CustomCell.MainView>
                                     <StackLayout Orientation="Vertical">
                                         <Label Text="{Binding Name}" />
                                         <Label Text="{Binding PercentageFinished}" />
-                                        <ProgressBar Progress="0.2"/>
+                                        <views:ProgressIndicator Value="3" MaxValue="10"/>
+                                        <ProgressBar Progress="{Binding PercentageFinished}"/>
                                     </StackLayout>
                                 </views:CustomCell.MainView>
                             </views:CustomCell>
