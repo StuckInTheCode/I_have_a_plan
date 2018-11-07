@@ -16,12 +16,14 @@ namespace I_have_a_plan.ViewModels
         public INavigation Navigation { get; set; }
         public ICommand EditCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
+        private Services.IMessageService MessageService;
         MainAppViewModel lvm;
 
         public Project Project { get; private set; }
 
         public ProjectViewModel()
         {
+            MessageService = DependencyService.Get<Services.IMessageService>();
             Project = new Project();
             Tasks = new ObservableCollection<TaskViewModel>();
             //test task
@@ -143,7 +145,8 @@ namespace I_have_a_plan.ViewModels
             Name = viewModel.Name;
             Beginning = viewModel.Beginning;
             Deadline = viewModel.Deadline;
-            MessagingCenter.Send<ProjectViewModel>(this, "Project cant have empty fields");
+            MessageService.ShowAsync("Please fill the empty fields");
+            //MessagingCenter.Send<ProjectViewModel>(this, "Project cant have empty fields");
             Navigation.PopAsync();
 
         }

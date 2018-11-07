@@ -13,9 +13,10 @@ namespace I_have_a_plan
         public readonly int MAXCOUNT = 50;
         public App()
         {
+            DependencyService.Register<ViewModels.Services.IMessageService, Views.Services.MessageService>();
             InitializeComponent();
             MAXCOUNT = 50;
-            MainPage = new NavigationPage ( new MainAppPage());
+            MainPage = new NavigationPage(new MainAppPage());
         }
 
         protected override void OnStart()
