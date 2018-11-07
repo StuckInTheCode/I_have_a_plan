@@ -29,5 +29,12 @@ namespace I_have_a_plan.Views
         {
             Navigation.PushAsync(new ProjectPage(ViewModel.SelectedProject));
         }
+
+        private void btnChange_Clicked(object sender, EventArgs e)
+        {
+            bool state = taskList.IsVisible;
+            taskList.IsVisible = projectList.IsVisible;
+            projectList.IsVisible = state;
+        }
     }
 }

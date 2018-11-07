@@ -4,29 +4,59 @@
              xmlns:views="clr-namespace:I_have_a_plan.Views"
              x:Class="I_have_a_plan.Views.MainAppPage" Title="Your projects">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Add project" Order="Primary" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}"/>
+        <ToolbarItem Name="Add project" Order="Primary" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}">
+        </ToolbarItem>
         <ToolbarItem Name="Calendar" Order="Primary" Icon="Xamarin.png" Priority="1" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout x:Name="top">
+            <StackLayout.Orientation>
+                <OnPlatform  x:TypeArguments="StackOrientation" Android="Vertical" WinPhone="Horizontal"/>
+            </StackLayout.Orientation>
+            
             <ListView x:Name = "projectList" ItemsSource="{Binding Projects}" HasUnevenRows="True"
                        SelectedItem="{Binding SelectedProject}" ItemTapped ="projectList_ItemTapped">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
+                <ListView.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" WinPhone="True" Android="False" ></OnPlatform>
+                </ListView.IsVisible>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
                                 <StackLayout Orientation="Vertical">
                                     <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" />
-                                    <Label Text="{Binding Name}" />
+                                        <Label Text="{Binding Name}" />
+                                        <Label Text="{Binding Name}" />
                                     </StackLayout>
                                     <ProgressBar Progress="{Binding PercentageComplited}" VerticalOptions="Center" WidthRequest="100" BackgroundColor="Aqua"/>
                                 </StackLayout>
                             </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="btnChange" Clicked="btnChange_Clicked">
+                <Button.IsVisible>
+            <OnPlatform x:TypeArguments="x:Boolean" Android="True" Default="False"></OnPlatform>
+                </Button.IsVisible>
+            </Button>
+            <ListView x:Name = "taskList" ItemsSource="{Binding Tasks}" HasUnevenRows="True" IsVisible="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" />
+                                    <Switch IsToggled ="False"/>
+                                </StackLayout>
+                            </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
