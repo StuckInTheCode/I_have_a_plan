@@ -26,10 +26,5 @@ namespace I_have_a_plan.Views
                 DisplayAlert(" ", "Project cant have empty fields", "OK");
             });
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            ViewModel.Tasks[0].Test++;
-        }
     }
 }

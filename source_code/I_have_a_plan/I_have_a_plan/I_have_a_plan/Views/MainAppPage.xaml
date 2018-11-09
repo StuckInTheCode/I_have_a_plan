@@ -2,14 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:I_have_a_plan.Views"
-             x:Class="I_have_a_plan.Views.MainAppPage" Title="Your projects">
+             x:Class="I_have_a_plan.Views.MainAppPage"
+             Title="Your projects"
+             Padding="20,20,20,20">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Add project" Order="Primary" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}">
+        <ToolbarItem  Order="Default" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Name>
+                <OnPlatform x:TypeArguments="x:String" WinPhone="Add project"/>
+            </ToolbarItem.Name>
         </ToolbarItem>
-        <ToolbarItem Name="Calendar" Order="Primary" Icon="Xamarin.png" Priority="1" />
+        <ToolbarItem Order="Primary" Icon="Xamarin.png" Priority="1">
+            <ToolbarItem.Name>
+                <OnPlatform x:TypeArguments="x:String" WinPhone="Calendar"/>
+            </ToolbarItem.Name>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout x:Name="top">
+        <StackLayout x:Name="top" Padding="10,10,10,10">
             <StackLayout.Orientation>
                 <OnPlatform  x:TypeArguments="StackOrientation" Android="Vertical" WinPhone="Horizontal"/>
             </StackLayout.Orientation>
@@ -25,7 +34,7 @@
                             <ViewCell.View>
                                 <StackLayout Orientation="Vertical">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" />
+                                        <Label Text="Icon" />
                                         <Label Text="{Binding Name}" />
                                     </StackLayout>
                                     <ProgressBar Progress="{Binding PercentageComplited}" VerticalOptions="Center" WidthRequest="100" BackgroundColor="Aqua"/>

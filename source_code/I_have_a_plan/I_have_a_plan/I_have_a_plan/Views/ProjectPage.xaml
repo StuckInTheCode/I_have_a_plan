@@ -4,28 +4,39 @@
              xmlns:views="clr-namespace:I_have_a_plan.Views"
              x:Class="I_have_a_plan.Views.ProjectPage"
              Title="{Binding Name}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Delete project" Order="Primary">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="friendStack">
+            <StackLayout x:Name="friendStack" VerticalOptions="FillAndExpand">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding Beginning}" FontSize="Medium" />
-                    <Label Text="{Binding Info}" FontSize="Small" />
+                    <Label Text="You begin this project at " FontSize="Small" />
+                    <Label Text="{Binding Beginning}" FontSize="Small" />
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="{Binding Deadline}" FontSize="Medium" />
-                    <Button Command="{Binding EditCommand}"/>
+                <Label Text="{Binding Info}" FontSize="Small" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Label Text="Deadline " FontSize="Small" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Deadline}" FontSize="Small" />
+                    <Button Text="Edit" Command="{Binding EditCommand}" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
             </StackLayout>
-            <StackLayout x:Name="taskStack" HorizontalOptions="Center">
-                <ListView x:Name = "projectList" ItemsSource="{Binding Tasks}" HasUnevenRows="True">
+            <StackLayout x:Name="taskStack" HorizontalOptions="Center" VerticalOptions="Center">
+                <ListView x:Name = "projectList" ItemsSource="{Binding Tasks}" HasUnevenRows="True" >
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Tasks"/>
+                            <Button  Text="Add" x:Name="Deletetask" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <views:CustomCell x:Name="view" Title ="Task">
                                 <views:CustomCell.HeaderView>
-                                    <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                                         <Label Text="{Binding Name}" />
-                                        <Button Clicked="Button_Clicked"/>
-                                        <ProgressBar Progress="{Binding PercentageFinished}"/>
+                                        <ProgressBar Progress="{Binding PercentageFinished}" HorizontalOptions="EndAndExpand"/>
                                     </StackLayout>
                                 </views:CustomCell.HeaderView>
                                 <views:CustomCell.MainView>
