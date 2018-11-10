@@ -1,42 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace I_have_a_plan.Models
 {
-    public class ProjectManager
+    public class ProjectManager: IAsyncInitialization
     {
-        private List<Project> projectList;
-        private Int32 projectCount;
+        public  List<Project> projectList { get; set; }
+        private  Int32 projectCount;
         public ProjectManager()
         {
-            projectList = new List<Project>();
+            JSONSerializer JSON = new JSONSerializer();
+            projectCount = 0;
+            projectList = JSON.LoadProjectsFromJson();
+            projectCount = projectList.Count;
+            //Initialization = InitializeAsync();
+
+        }
+        public System.Threading.Tasks.Task Initialization { get; private set; }
+
+        private async System.Threading.Tasks.Task InitializeAsync()
+        {
+            // Asynchronously initialize this instance.
+            JSONSerializer JSON = new JSONSerializer();
+            List<Project> list = await JSON.LoadProjectsFromJsonAsync();
+            projectList = list;
+            projectCount = projectList.Count;
         }
 
-        public void addProject(Project newProject)
+        public async System.Threading.Tasks.Task AddProjectAsync(Project newProject)
         {
             projectList.Add(newProject);
+            JSONSerializer JSON = new JSONSerializer();
+            await JSON.SaveProjectsToJsonAsync(projectList);
 
         }
-        public void editProject(Project curProject)
+
+        public async System.Threading.Tasks.Task EditProjectAsync(Project curProject)
         {
-            //Project temp;
-            foreach ( var v in projectList)
-            {
+            Project editProject = projectList.Find(x => x.id == curProject.id);
+            editProject.name = curProject.name;
+            editProject.beginning = curProject.beginning;
+            editProject.deadline = curProject.deadline;
+            JSONSerializer JSON = new JSONSerializer();
+            await JSON.SaveProjectsToJsonAsync(projectList);
 
-            }
         }
-        public void deleteProject(Project curProject)
+        public async System.Threading.Tasks.Task DeleteProjectAsync(Project curProject)
         {
             projectList.Remove(curProject);
+            JSONSerializer JSON = new JSONSerializer();
+            await JSON.SaveProjectsToJsonAsync(projectList);
         }
-        public bool checkProjectCount()
+
+        /// <summary>
+        /// Compares the value of the current number of projects 
+        /// with the maximum possible
+        /// </summary>
+        /// <returns>
+        /// true if count of projects is equal to maximum
+        /// </returns>
+        public bool CheckProjectCount()
         {
-            return true;
+            if(projectCount==50)
+                return true;
+            else
+                return false;
         }
-        public bool checkProjectTaskCount()
+
+        /// <summary>
+        /// Compares the value of the current number of project tasks
+        /// with the maximum possible
+        /// </summary>
+        /// <param name="curProject"> 
+        /// Checked project 
+        /// </param>
+        /// <returns>
+        /// true if count of the  task is equal to maximum
+        /// </returns>
+        public bool CheckProjectTaskCount(Project curProject)
         {
-            return true;
+            return curProject.checkTaskCount();
         }
     }
 }

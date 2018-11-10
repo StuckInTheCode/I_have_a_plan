@@ -12,9 +12,7 @@ namespace I_have_a_plan.ViewModels
 {
     public class MainAppViewModel : INotifyPropertyChanged
     {
-        //private readonly IDialogService dialogService;
-        //try to realize the dialog showing inteface to the viewModel classes
-
+        private ProjectManager projectManager;
         public ObservableCollection<ProjectViewModel> Projects { get ; set; }
         public ObservableCollection<TaskViewModel> Tasks { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,8 +20,8 @@ namespace I_have_a_plan.ViewModels
         public ICommand AddCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
         public ICommand BackCommand { protected set; get; }
-        String name2 { get; set;}
         ProjectViewModel selectedProject;
+
         public ProjectViewModel SelectedProject
         {
             get { return selectedProject; }
@@ -36,18 +34,38 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
-        public MainAppViewModel()
+
+        public MainAppViewModel( ProjectManager manager)
         {
+            projectManager = manager;
             Projects = new ObservableCollection<ProjectViewModel>();
-            selectedProject = new ProjectViewModel();
-            ProjectViewModel project = new ProjectViewModel() ;
             Tasks = new ObservableCollection<TaskViewModel>();
-            TaskViewModel task = new TaskViewModel();
-            Tasks.Add(task);
-            Projects.Add(project);
+            selectedProject = new ProjectViewModel();
+            InitializeProjectViewCollection();
             AddCommand = new Command(AddProject);
             SaveCommand = new Command(SaveProject);
             BackCommand = new Command(Back);
+        }
+
+        private void InitializeTaskViewCollection(Project project)
+        {
+            foreach (Task element in project.taskList)
+            {
+                TaskViewModel task = new TaskViewModel(element);
+                Tasks.Add(task);
+            }
+
+        }
+
+        public void InitializeProjectViewCollection()
+        {
+            if(projectManager.projectList != null)
+                foreach (Project element in projectManager.projectList)
+                {
+                    ProjectViewModel projectElement = new ProjectViewModel(element);
+                    Projects.Add(projectElement);
+                    InitializeTaskViewCollection(element);
+                }
         }
 
         private void AddProject()
@@ -62,7 +80,7 @@ namespace I_have_a_plan.ViewModels
         {
             Navigation.PopAsync();
         }
-        private void SaveProject(object projectObject)
+        private async void SaveProject(object projectObject)
         {
 
             ProjectViewModel project = projectObject as ProjectViewModel;
@@ -70,14 +88,13 @@ namespace I_have_a_plan.ViewModels
             if (project != null && project.IsValid)
             {
                 project.Trim();
+                await projectManager.AddProjectAsync(project.Project);
                 Projects.Add(project);
                 Back();
             }
             else
             {
-                //send messagee to the subscribers
-                MessagingCenter.Send<MainAppViewModel>(this, "Not all field filled");
-
+                //show nessage about problem
             }
             
         }
