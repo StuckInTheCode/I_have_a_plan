@@ -92,6 +92,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -144,13 +145,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5"/>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\I_have_a_plan\I_have_a_plan.csproj">
       <Project>{CBC9292E-81BF-4F40-A6E1-4EC52553CF49}</Project>
       <Name>I_have_a_plan</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Project.json" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
