@@ -39,6 +39,7 @@ namespace I_have_a_plan.ViewModels
         {
             projectManager = manager;
             Projects = new ObservableCollection<ProjectViewModel>();
+            Projects.Add(new ProjectViewModel());
             Tasks = new ObservableCollection<TaskViewModel>();
             selectedProject = new ProjectViewModel();
             InitializeProjectViewCollection();

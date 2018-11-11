@@ -16,6 +16,8 @@ namespace I_have_a_plan.ViewModels
         public INavigation Navigation { get; set; }
         public ICommand EditCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
+        public ICommand AddCommand { protected set; get; }
+        public ICommand SaveTaskCommand { protected set; get; }
         private Services.IMessageService MessageService;
         MainAppViewModel lvm;
 
@@ -31,14 +33,21 @@ namespace I_have_a_plan.ViewModels
             Tasks.Add(task);
             EditCommand = new Command(EditProject);
             SaveCommand = new Command(SaveChanges);
+            AddCommand = new Command(AddTask);
+            SaveTaskCommand = new Command(SaveTask);
         }
 
         public ProjectViewModel(Project project)
         {
+            MessageService = DependencyService.Get<Services.IMessageService>();
             Project = project;
             Tasks = new ObservableCollection<TaskViewModel>();
             TaskViewModel task = new TaskViewModel();
             Tasks.Add(task);
+            EditCommand = new Command(EditProject);
+            SaveCommand = new Command(SaveChanges);
+            AddCommand = new Command(AddTask);
+            SaveTaskCommand = new Command(SaveTask);
         }
 
         public MainAppViewModel ListViewModel
@@ -66,10 +75,10 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
-        public double PercentageComplited
+        private double PercentageComplited
         {
             get { return Project.percentageComplited; }
-            protected set
+            set
             {
                 if (Project.percentageComplited != value)
                 {
@@ -84,7 +93,7 @@ namespace I_have_a_plan.ViewModels
             get { return Project.deadline; }
             set
             {
-                if (Project.deadline != value)
+                if (Project.deadline != value && IsDateValid())
                 {
                     Project.deadline = value;
                     OnPropertyChanged("Deadline");
@@ -96,7 +105,7 @@ namespace I_have_a_plan.ViewModels
             get { return Project.beginning; }
             set
             {
-                if (Project.beginning != value)
+                if (Project.beginning != value && IsDateValid())
                 {
                     Project.beginning = value;
                     OnPropertyChanged("Beginning");
@@ -134,26 +143,79 @@ namespace I_have_a_plan.ViewModels
             Beginning.Trim();
         }
 
-        private void EditProject()
+        public void EditProject()
         {
             Navigation.PushAsync(new EditingProjectPage(new EditingProjectViewModel() { ViewModel = this , Project = new Project( this.Project)}));
-
+            //Navigation.PushAsync(new EditingProjectPage(new ProjectViewModel() { ListViewModel = this, Project = new Project(this.Project) }));
         }
-        private void SaveChanges (object projectObject)
+
+        private void AddTask()
+        {
+            Navigation.PushAsync(new AddingTaskPage(new TaskViewModel() { ViewModel = this }));
+        }
+
+        public void SaveChanges(object projectObject)
         {
             EditingProjectViewModel viewModel = projectObject as EditingProjectViewModel;
-            Name = viewModel.Name;
-            Beginning = viewModel.Beginning;
-            Deadline = viewModel.Deadline;
+            if (viewModel.IsValid)
+            {
+                Name = viewModel.Name;
+                Beginning = viewModel.Beginning;
+                Deadline = viewModel.Deadline;
+                Navigation.PopAsync();
+            }
+            else
             MessageService.ShowAsync("Please fill the empty fields");
-            //MessagingCenter.Send<ProjectViewModel>(this, "Project cant have empty fields");
-            Navigation.PopAsync();
-
         }
+
+        public void SaveTask(object taskObject)
+        {
+            TaskViewModel viewModel = taskObject as TaskViewModel;
+            //if (viewModel.IsValid)
+            //{
+            Task task = new Task();
+            task.name = viewModel.Name;
+            Project.addTask(task);
+            Tasks.Add(viewModel);
+            Navigation.PopAsync();
+            //}
+            //else
+            //    MessageService.ShowAsync("Please fill the empty fields");
+        }
+
+        private bool IsDateValid()
+        {
+            DateTime currentDate = DateTime.Now;
+
+            int day, month, year;
+            double percentage;
+            // calculate the duration of the project
+            Int32.TryParse(Project.beginning.Substring(0, 2), out day);
+            Int32.TryParse(Project.beginning.Substring(3, 2), out month);
+            Int32.TryParse(Project.beginning.Substring(6, 4), out year);
+            DateTime beginningDate = new DateTime(year, month, day);
+            Int32.TryParse(Project.deadline.Substring(0, 2), out day);
+            Int32.TryParse(Project.deadline.Substring(3, 2), out month);
+            Int32.TryParse(Project.deadline.Substring(6, 4), out year);
+            DateTime deadlineDate = new DateTime(year, month, day);
+            //convert days until project finish to the persentage
+            try
+            {
+                percentage = (currentDate.Subtract(beginningDate).TotalDays / deadlineDate.Subtract(beginningDate).TotalDays);
+                PercentageComplited = percentage;
+                return true;
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+                MessageService.ShowAsync("Deadline cant be earlier than beginning");
+                return false;
+            }
+        }
+
+
         protected void OnPropertyChanged(string propName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     
     }
