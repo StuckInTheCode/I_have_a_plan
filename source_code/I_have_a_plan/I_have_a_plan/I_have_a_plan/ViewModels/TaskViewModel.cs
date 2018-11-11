@@ -12,7 +12,6 @@ namespace I_have_a_plan.ViewModels
     public class TaskViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<TaskViewModel> Tasks { get; set; }
         ProjectViewModel lvm;
         static double test;
         public Task Task { get; private set; }
@@ -21,10 +20,14 @@ namespace I_have_a_plan.ViewModels
         {
             Task = new Task();
             Task.name ="task";
-            test = 0.5;
+            test = 0;
+        }
+        public TaskViewModel(Task task)
+        {
+            Task = task;
         }
 
-        public ProjectViewModel ListViewModel
+        public ProjectViewModel ViewModel
         {
             get { return lvm; }
             set
@@ -32,7 +35,7 @@ namespace I_have_a_plan.ViewModels
                 if (lvm != value)
                 {
                     lvm = value;
-                    OnPropertyChanged("ListViewModel");
+                    OnPropertyChanged("ViewModel");
                 }
             }
         }
