@@ -12,14 +12,16 @@ namespace I_have_a_plan.ViewModels
 {
     public class MainAppViewModel : INotifyPropertyChanged
     {
-        private ProjectManager projectManager;
+        public ProjectManager projectManager;
         public ObservableCollection<ProjectViewModel> Projects { get ; set; }
         public ObservableCollection<TaskViewModel> Tasks { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public INavigation Navigation { get; set; }
         public ICommand AddCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
         public ICommand BackCommand { protected set; get; }
+
         ProjectViewModel selectedProject;
 
         public ProjectViewModel SelectedProject
@@ -30,6 +32,8 @@ namespace I_have_a_plan.ViewModels
                 if (selectedProject != value)
                 {
                     selectedProject = value;
+                    //set ManagedViewModel to this
+                    selectedProject.ListViewModel = this;
                     OnPropertyChanged("SelectedProject");
                 }
             }
@@ -38,34 +42,84 @@ namespace I_have_a_plan.ViewModels
         public MainAppViewModel( ProjectManager manager)
         {
             projectManager = manager;
-            Projects = new ObservableCollection<ProjectViewModel>();
-            Projects.Add(new ProjectViewModel());
-            Tasks = new ObservableCollection<TaskViewModel>();
-            selectedProject = new ProjectViewModel();
+
             InitializeProjectViewCollection();
+            Projects.CollectionChanged += Projects_CollectionChanged;
+
             AddCommand = new Command(AddProject);
             SaveCommand = new Command(SaveProject);
             BackCommand = new Command(Back);
         }
-
-        private void InitializeTaskViewCollection(Project project)
+        private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            foreach (Task element in project.taskList)
+            //if taskList was edit, then update it
+            if (e.PropertyName == "TaskList")
             {
-                TaskViewModel task = new TaskViewModel(element);
-                Tasks.Add(task);
+                ProjectViewModel collection = sender as ProjectViewModel;
+                //add new tasks
+                foreach (TaskViewModel t in collection.Tasks)
+                {
+                    if (!Tasks.Contains(t))
+                    {
+                        Tasks.Add(t);
+                    }
+                }
+                //remove deleted tasks
+                for (int i = 0; i < Tasks.Count; i++)
+                {
+                    if (Tasks[i].ViewModel == collection)
+                        if (!collection.Tasks.Contains(Tasks[i]))
+                        {
+                            Tasks.RemoveAt(i);
+                        }
+                }
             }
+        }
 
+        private void Projects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+
+            if (e.NewItems != null)
+            {
+                foreach (ProjectViewModel newItem in e.NewItems)
+                {
+                    foreach (TaskViewModel newTask in newItem.Tasks) {
+                        Tasks.Add(newTask);
+                    }
+                    //Add listener for each item on PropertyChanged event
+                    newItem.PropertyChanged += this.OnItemPropertyChanged;
+                }
+            }
+        }
+
+        private void InitializeTaskViewCollection()
+        {
+            Tasks = new ObservableCollection<TaskViewModel>();
+            foreach (Project project in projectManager.projectList)
+            {
+                foreach (Task task in project.taskList)
+                {
+                    TaskViewModel taskViewModel = new TaskViewModel(task);
+                    Tasks.Add(taskViewModel);
+                }
+            }
         }
 
         public void InitializeProjectViewCollection()
         {
-            if(projectManager.projectList != null)
+            Projects = new ObservableCollection<ProjectViewModel>();
+            Tasks = new ObservableCollection<TaskViewModel>();
+            if (projectManager.projectList != null)
                 foreach (Project element in projectManager.projectList)
                 {
                     ProjectViewModel projectElement = new ProjectViewModel(element);
+                    projectElement.PropertyChanged += this.OnItemPropertyChanged;
                     Projects.Add(projectElement);
-                    InitializeTaskViewCollection(element);
+                    foreach (TaskViewModel task in projectElement.Tasks)
+                    {
+                        //add tasks from current project to the collection
+                        Tasks.Add(task);
+                    }
                 }
         }
 
@@ -102,7 +156,7 @@ namespace I_have_a_plan.ViewModels
 
         private void toTheProject(object sender)
         {
-            Navigation.PushAsync(( new ProjectPage(selectedProject)));
+            Navigation.PushAsync(( new ProjectPage(selectedProject) ));
         }
         protected void OnPropertyChanged(string propName)
         {

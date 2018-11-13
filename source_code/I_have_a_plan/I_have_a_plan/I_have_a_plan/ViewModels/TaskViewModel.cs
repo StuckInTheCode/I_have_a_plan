@@ -21,7 +21,9 @@ namespace I_have_a_plan.ViewModels
             Task = new Task();
             Task.name ="task";
             test = 0;
+            //lvm.PropertyChanged += Lvm_PropertyChanged;
         }
+
         public TaskViewModel(Task task)
         {
             Task = task;

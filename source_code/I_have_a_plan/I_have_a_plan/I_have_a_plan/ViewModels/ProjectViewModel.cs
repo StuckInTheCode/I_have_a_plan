@@ -28,9 +28,6 @@ namespace I_have_a_plan.ViewModels
             MessageService = DependencyService.Get<Services.IMessageService>();
             Project = new Project();
             Tasks = new ObservableCollection<TaskViewModel>();
-            //test task
-            TaskViewModel task = new TaskViewModel();
-            Tasks.Add(task);
             EditCommand = new Command(EditProject);
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
@@ -42,12 +39,20 @@ namespace I_have_a_plan.ViewModels
             MessageService = DependencyService.Get<Services.IMessageService>();
             Project = project;
             Tasks = new ObservableCollection<TaskViewModel>();
-            TaskViewModel task = new TaskViewModel();
-            Tasks.Add(task);
+            LoadTasks();
             EditCommand = new Command(EditProject);
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
             SaveTaskCommand = new Command(SaveTask);
+        }
+
+        private void LoadTasks()
+        {
+            foreach( Task task in Project.taskList)
+            {
+                TaskViewModel taskViewModel = new TaskViewModel(task);
+                Tasks.Add(taskViewModel);
+            }
         }
 
         public MainAppViewModel ListViewModel
@@ -146,7 +151,7 @@ namespace I_have_a_plan.ViewModels
         public void EditProject()
         {
             Navigation.PushAsync(new EditingProjectPage(new EditingProjectViewModel() { ViewModel = this , Project = new Project( this.Project)}));
-            //Navigation.PushAsync(new EditingProjectPage(new ProjectViewModel() { ListViewModel = this, Project = new Project(this.Project) }));
+            //Navigation.PushAsync(new EditingProjectPage(new ProjectViewModel( new Project(this.Project)) { SaveCommand = this.SaveCommand } ));
         }
 
         private void AddTask()
@@ -162,22 +167,20 @@ namespace I_have_a_plan.ViewModels
                 Name = viewModel.Name;
                 Beginning = viewModel.Beginning;
                 Deadline = viewModel.Deadline;
+                Info = viewModel.Info;
                 Navigation.PopAsync();
             }
             else
             MessageService.ShowAsync("Please fill the empty fields");
         }
 
-        public void SaveTask(object taskObject)
+        public async void SaveTask(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
-            //if (viewModel.IsValid)
-            //{
-            Task task = new Task();
-            task.name = viewModel.Name;
-            Project.addTask(task);
+            await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
             Tasks.Add(viewModel);
-            Navigation.PopAsync();
+            OnPropertyChanged("TaskList");
+            await Navigation.PopAsync();
             //}
             //else
             //    MessageService.ShowAsync("Please fill the empty fields");
@@ -216,6 +219,7 @@ namespace I_have_a_plan.ViewModels
         protected void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
         }
     
     }
