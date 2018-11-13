@@ -54,6 +54,15 @@ namespace I_have_a_plan.Models
             await JSON.SaveProjectsToJsonAsync(projectList);
         }
 
+        public async System.Threading.Tasks.Task AddTaskToTheProject(Task curTask, Project curProject)
+        {
+            Project editProject = projectList.Find(x => x.id == curProject.id);
+            editProject.addTask(curTask);
+            //taskList.Add(curProject, curTask);
+            JSONSerializer JSON = new JSONSerializer();
+            await JSON.SaveProjectsToJsonAsync(projectList);
+        }
+
         /// <summary>
         /// Compares the value of the current number of projects 
         /// with the maximum possible
