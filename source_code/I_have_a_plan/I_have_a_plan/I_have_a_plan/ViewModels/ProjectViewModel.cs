@@ -17,6 +17,7 @@ namespace I_have_a_plan.ViewModels
         public ICommand EditCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
         public ICommand AddCommand { protected set; get; }
+        public ICommand DeleteTaskCommand { protected set; get; }
         public ICommand SaveTaskCommand { protected set; get; }
         private Services.IMessageService MessageService;
         MainAppViewModel lvm;
@@ -32,6 +33,7 @@ namespace I_have_a_plan.ViewModels
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
             SaveTaskCommand = new Command(SaveTask);
+
         }
 
         public ProjectViewModel(Project project)
@@ -44,6 +46,7 @@ namespace I_have_a_plan.ViewModels
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
             SaveTaskCommand = new Command(SaveTask);
+            DeleteTaskCommand = new Command(DeleteTaskAsync);
         }
 
         private void LoadTasks()
@@ -51,6 +54,7 @@ namespace I_have_a_plan.ViewModels
             foreach( Task task in Project.taskList)
             {
                 TaskViewModel taskViewModel = new TaskViewModel(task);
+                taskViewModel.ViewModel = this;
                 Tasks.Add(taskViewModel);
             }
         }
@@ -159,6 +163,17 @@ namespace I_have_a_plan.ViewModels
             Navigation.PushAsync(new AddingTaskPage(new TaskViewModel() { ViewModel = this }));
         }
 
+        public async void DeleteTaskAsync(object taskObject)
+        {
+            TaskViewModel taskViewModel = taskObject as TaskViewModel;
+            if(await MessageService.ShowDialog("Are you sure?"))
+            {
+                await ListViewModel.projectManager.DeleteTaskFromCurrentProject(taskViewModel.Task, Project);
+                Tasks.Remove(taskViewModel);
+                OnPropertyChanged("TaskList");
+            }
+        }
+
         public void SaveChanges(object projectObject)
         {
             EditingProjectViewModel viewModel = projectObject as EditingProjectViewModel;
@@ -177,6 +192,7 @@ namespace I_have_a_plan.ViewModels
         public async void SaveTask(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
+            //if task is valid
             await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
             Tasks.Add(viewModel);
             OnPropertyChanged("TaskList");

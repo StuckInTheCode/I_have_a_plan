@@ -20,6 +20,7 @@ namespace I_have_a_plan.ViewModels
         public INavigation Navigation { get; set; }
         public ICommand AddCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
+        public ICommand DeleteCommand { protected set; get; }
         public ICommand BackCommand { protected set; get; }
 
         ProjectViewModel selectedProject;
@@ -49,7 +50,9 @@ namespace I_have_a_plan.ViewModels
             AddCommand = new Command(AddProject);
             SaveCommand = new Command(SaveProject);
             BackCommand = new Command(Back);
+            DeleteCommand = new Command(DeleteProject);
         }
+
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //if taskList was edit, then update it
@@ -67,7 +70,8 @@ namespace I_have_a_plan.ViewModels
                 //remove deleted tasks
                 for (int i = 0; i < Tasks.Count; i++)
                 {
-                    if (Tasks[i].ViewModel == collection)
+                    ProjectViewModel curProject = Tasks[i].ViewModel;
+                    if (curProject.Equals(collection))
                         if (!collection.Tasks.Contains(Tasks[i]))
                         {
                             Tasks.RemoveAt(i);
@@ -88,6 +92,19 @@ namespace I_have_a_plan.ViewModels
                     }
                     //Add listener for each item on PropertyChanged event
                     newItem.PropertyChanged += this.OnItemPropertyChanged;
+                }
+            }
+            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                foreach (ProjectViewModel removingItem in e.OldItems)
+                {
+                    //Remove listener 
+                    removingItem.PropertyChanged -= this.OnItemPropertyChanged;
+                    foreach (TaskViewModel item in removingItem.Tasks)
+                    {
+                        //remove projects task from the main task list
+                        Tasks.Remove(item);
+                    }
                 }
             }
         }
@@ -128,13 +145,28 @@ namespace I_have_a_plan.ViewModels
             if(Projects.Count == 50)
                 MessagingCenter.Send<MainAppViewModel, string>(this, "saveProjectMessage", "Project count is maximum");
             else
+                // set the navigation of the current page as the root of the new page
                 Navigation.PushAsync(new AddingProjectPage(new ProjectViewModel() { ListViewModel = this , Navigation = this.Navigation }));
-            // set the navigation of the current page as the root of the new page
+
         }
+
+        private async void DeleteProject(object projectObject)
+        {
+            Services.IMessageService MessageService = DependencyService.Get<Services.IMessageService>();
+            if (await MessageService.ShowDialog("Are you sure?"))
+            {
+                await Navigation.PopAsync();
+                ProjectViewModel project = projectObject as ProjectViewModel;
+                await projectManager.DeleteProjectAsync(project.Project);
+                Projects.Remove(project);
+            }
+        }
+
         private void Back()
         {
             Navigation.PopAsync();
         }
+
         private async void SaveProject(object projectObject)
         {
 
@@ -150,6 +182,8 @@ namespace I_have_a_plan.ViewModels
             else
             {
                 //show nessage about problem
+                Services.IMessageService MessageService = DependencyService.Get<Services.IMessageService>();
+                await MessageService.ShowAsync("Please fill empty fields");
             }
             
         }

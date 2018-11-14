@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:I_have_a_plan.Views"
              x:Class="I_have_a_plan.Views.ProjectPage"
+             x:Name="ParentView"
              Title="{Binding Name}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Delete project" Order="Primary">
+        <ToolbarItem Name="Delete project" Command ="{Binding ListViewModel.DeleteCommand}" CommandParameter="{Binding }" Order="Primary">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="friendStack" VerticalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="FillAndExpand">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="You begin this project at " FontSize="Small" />
                     <Label Text="{Binding Beginning}" FontSize="Small" />
@@ -19,7 +20,7 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
                     <Label Text="Deadline " FontSize="Small" HorizontalTextAlignment="Start"/>
                     <Label Text="{Binding Deadline}" FontSize="Small" />
-                    <Button Text="Edit" Command="{Binding EditCommand}" HorizontalOptions="EndAndExpand"/>
+                    <Button Text="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding}" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
             </StackLayout>
             <StackLayout x:Name="taskStack" HorizontalOptions="Center" VerticalOptions="Center">
@@ -27,7 +28,7 @@
                     <ListView.Header>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                             <Label Text="Tasks"/>
-                            <Button  Text="Add" x:Name="Deletetask" HorizontalOptions="EndAndExpand"/>
+                            <Button  Text="Add" Command ="{Binding AddCommand}" CommandParameter="{Binding }" HorizontalOptions="EndAndExpand"/>
                         </StackLayout>
                     </ListView.Header>
                     <ListView.ItemTemplate>
@@ -43,7 +44,7 @@
                                     <StackLayout Orientation="Vertical">
                                         <Label Text="{Binding Name}" />
                                         <Label Text="{Binding PercentageFinished}" />
-                                        <views:ProgressIndicator Value="3" MaxValue="10"/>
+                                        <Button Text="-" Command="{Binding BindingContext.DeleteTaskCommand, Source={x:Reference ParentView} }" CommandParameter="{Binding}"/>
                                         <ProgressBar Progress="{Binding PercentageFinished}"/>
                                     </StackLayout>
                                 </views:CustomCell.MainView>
