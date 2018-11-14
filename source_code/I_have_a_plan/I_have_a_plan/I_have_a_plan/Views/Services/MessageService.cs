@@ -17,6 +17,11 @@ namespace I_have_a_plan.Views.Services
         {
             await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Message", message, "Ok");
         }
+
+        public async Task<bool> ShowDialog(string message)
+        {
+            return await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Message", message, "Ok", "Cancel");
+        }
         #endregion
     }
 }

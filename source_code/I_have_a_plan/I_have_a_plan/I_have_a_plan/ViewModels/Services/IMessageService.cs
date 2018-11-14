@@ -8,5 +8,6 @@ namespace I_have_a_plan.ViewModels.Services
     interface IMessageService
     {
         Task ShowAsync(string message);
+        Task<bool> ShowDialog(string message);
     }
 }
