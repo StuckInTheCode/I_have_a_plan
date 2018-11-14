@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace I_have_a_plan.Models
 {
@@ -63,6 +64,15 @@ namespace I_have_a_plan.Models
             await JSON.SaveProjectsToJsonAsync(projectList);
         }
 
+        public async System.Threading.Tasks.Task DeleteTaskFromCurrentProject(Task task, Project project)
+        {
+            Project editProject = projectList.Find(x => x.id == project.id);
+            editProject.deleteTask(task);
+            //taskList.Add(curProject, curTask);
+            JSONSerializer JSON = new JSONSerializer();
+            await JSON.SaveProjectsToJsonAsync(projectList);
+        }
+
         /// <summary>
         /// Compares the value of the current number of projects 
         /// with the maximum possible
@@ -92,5 +102,7 @@ namespace I_have_a_plan.Models
         {
             return curProject.checkTaskCount();
         }
+
+
     }
 }
