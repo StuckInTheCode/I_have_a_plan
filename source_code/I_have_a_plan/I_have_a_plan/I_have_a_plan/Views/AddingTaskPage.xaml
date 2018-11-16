@@ -7,6 +7,10 @@
             <StackLayout x:Name="friendStack">
                 <Label Text="Name" />
                 <Entry Text="{Binding Name}" FontSize="Medium"/>
+                <Label Text="Percentage complited"/>
+                <Slider Value="{Binding PercentageFinished}" Maximum="100" Minimum="0"/>
+                <Label Text="Info about task"/>
+                <Entry Text="{Binding Info}" MaxLength="50"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Button x:Name ="AddButton" Text="Добавить" Command="{Binding ViewModel.SaveTaskCommand}" CommandParameter="{Binding}"  />

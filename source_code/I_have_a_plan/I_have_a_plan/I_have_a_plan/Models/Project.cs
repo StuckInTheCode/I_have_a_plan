@@ -59,13 +59,14 @@ namespace I_have_a_plan.Models
             curTask.name = newTask.name;
             curTask.daysFinished = newTask.daysFinished;
             curTask.daysAll = newTask.daysAll;
-
         }
+
         public void deleteTask(Task curTask)
         {
             taskList.Remove(curTask);
             taskCount--;
         }
+
         /// <summary>
         /// check is taskCount less than MAXCOUNT
         /// </summary>
