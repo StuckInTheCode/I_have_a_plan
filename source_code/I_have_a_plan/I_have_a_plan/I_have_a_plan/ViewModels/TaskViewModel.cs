@@ -20,13 +20,18 @@ namespace I_have_a_plan.ViewModels
         {
             Task = new Task();
             Task.name ="task";
+            //Task.daysAll = lvm.getProjectDuration();
             test = 0;
-            //lvm.PropertyChanged += Lvm_PropertyChanged;
         }
 
         public TaskViewModel(Task task)
         {
             Task = task;
+        }
+        public TaskViewModel(TaskViewModel taskViewModel)
+        {
+            Task = taskViewModel.Task;
+            ViewModel = taskViewModel.ViewModel;
         }
 
         public ProjectViewModel ViewModel
@@ -56,8 +61,21 @@ namespace I_have_a_plan.ViewModels
         }
         public Int32 PercentageFinished
         {
-            get { return Task.convertDaysToPercentage(); }
-            private set{}
+            get { return (int)(Task.percentageComplited*100); }
+            set{
+                if((int)(100*Task.percentageComplited )!= value )
+                {
+                    Task.percentageComplited = ((double)value)/100;
+                    //Task.daysFinished = (int)(((double)(value / 100)) * Task.daysAll); 
+                }
+
+            }
+        }
+
+        public double Percentage
+        {
+            get { return Task.percentageComplited; }
+            private set { }
         }
 
         public double Test
@@ -73,11 +91,24 @@ namespace I_have_a_plan.ViewModels
             }
         }
 
+        public string Info
+        {
+            get { return Task.info; }
+            set
+            {
+                if (Task.info != value)
+                {
+                    Task.info = value;
+                    OnPropertyChanged("Info");
+                }
+            }
+        }
+
         public bool IsValid
         {
             get
             {
-                return ((!string.IsNullOrEmpty(Name.Trim())));
+                return ((!string.IsNullOrEmpty(Name.Trim()))|| (!string.IsNullOrEmpty(Info.Trim())));
             }
         }
         protected void OnPropertyChanged(string propName)

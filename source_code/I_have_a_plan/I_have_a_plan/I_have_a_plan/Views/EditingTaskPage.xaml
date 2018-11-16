@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="I_have_a_plan.Views.EditingTaskPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}" FontSize="Medium"/>
+                <Label Text="Info about project"/>
+                <Entry Text="{Binding Info}" MaxLength="50"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button Text="Сохранить" Command="{Binding ViewModel.ChangeTaskCommand}" CommandParameter="{Binding}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

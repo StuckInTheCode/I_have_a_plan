@@ -17,12 +17,29 @@ namespace I_have_a_plan.ViewModels
         public ICommand EditCommand { protected set; get; }
         public ICommand SaveCommand { protected set; get; }
         public ICommand AddCommand { protected set; get; }
+        public ICommand ChangeTaskCommand { protected set; get; }
+        public ICommand EditTaskCommand { protected set; get; }
         public ICommand DeleteTaskCommand { protected set; get; }
         public ICommand SaveTaskCommand { protected set; get; }
         private Services.IMessageService MessageService;
         MainAppViewModel lvm;
-
+        TaskViewModel selectedTask;
         public Project Project { get; private set; }
+
+        public TaskViewModel SelectedTask
+        {
+            get { return selectedTask; }
+            set
+            {
+                if (selectedTask != value)
+                {
+                    selectedTask = value;
+                    //set ManagedViewModel to this
+                    //selectedTask.ListViewModel = this;
+                    OnPropertyChanged("SelectedTask");
+                }
+            }
+        }
 
         public ProjectViewModel()
         {
@@ -33,7 +50,8 @@ namespace I_have_a_plan.ViewModels
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
             SaveTaskCommand = new Command(SaveTask);
-
+            EditTaskCommand = new Command(EditTask);
+            DeleteTaskCommand = new Command(DeleteTaskAsync);
         }
 
         public ProjectViewModel(Project project)
@@ -45,7 +63,9 @@ namespace I_have_a_plan.ViewModels
             EditCommand = new Command(EditProject);
             SaveCommand = new Command(SaveChanges);
             AddCommand = new Command(AddTask);
+            ChangeTaskCommand = new Command(SaveTaskChanges);
             SaveTaskCommand = new Command(SaveTask);
+            EditTaskCommand = new Command(EditTask);
             DeleteTaskCommand = new Command(DeleteTaskAsync);
         }
 
@@ -163,6 +183,13 @@ namespace I_have_a_plan.ViewModels
             Navigation.PushAsync(new AddingTaskPage(new TaskViewModel() { ViewModel = this }));
         }
 
+        public void EditTask(object taskObject)
+        {
+            TaskViewModel taskViewModel = taskObject as TaskViewModel;
+            SelectedTask = taskViewModel;
+            Navigation.PushAsync(new EditingTaskPage(new TaskViewModel(taskViewModel)));
+        }
+
         public async void DeleteTaskAsync(object taskObject)
         {
             TaskViewModel taskViewModel = taskObject as TaskViewModel;
@@ -189,6 +216,21 @@ namespace I_have_a_plan.ViewModels
             MessageService.ShowAsync("Please fill the empty fields");
         }
 
+        public void SaveTaskChanges(object taskObject)
+        {
+            TaskViewModel viewModel = taskObject as TaskViewModel;
+
+            //await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
+                if (viewModel.IsValid)
+                {
+                    SelectedTask.Name = viewModel.Name;
+                    SelectedTask.Info = viewModel.Info;
+                    Navigation.PopAsync();
+                }
+                else
+                    MessageService.ShowAsync("Please fill the empty fields");
+        }
+
         public async void SaveTask(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
@@ -205,7 +247,6 @@ namespace I_have_a_plan.ViewModels
         private bool IsDateValid()
         {
             DateTime currentDate = DateTime.Now;
-
             int day, month, year;
             double percentage;
             // calculate the duration of the project
@@ -231,6 +272,27 @@ namespace I_have_a_plan.ViewModels
             }
         }
 
+        public Int32 getProjectDuration()
+        {
+            if (IsDateValid())
+            {
+                DateTime currentDate = DateTime.Now;
+                int day, month, year;
+                double percentage;
+                // calculate the duration of the project
+                Int32.TryParse(Project.beginning.Substring(0, 2), out day);
+                Int32.TryParse(Project.beginning.Substring(3, 2), out month);
+                Int32.TryParse(Project.beginning.Substring(6, 4), out year);
+                DateTime beginningDate = new DateTime(year, month, day);
+                Int32.TryParse(Project.deadline.Substring(0, 2), out day);
+                Int32.TryParse(Project.deadline.Substring(3, 2), out month);
+                Int32.TryParse(Project.deadline.Substring(6, 4), out year);
+                DateTime deadlineDate = new DateTime(year, month, day);
+                return (int)deadlineDate.Subtract(beginningDate).TotalDays;
+            }
+            else
+                return 0;
+        }
 
         protected void OnPropertyChanged(string propName)
         {
