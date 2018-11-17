@@ -13,15 +13,12 @@ namespace I_have_a_plan.Views
 	public partial class MainAppPage : ContentPage, IAnimatable
 	{
         public MainAppViewModel ViewModel { get; private set; }
-        public MainAppPage ()
+        public MainAppPage (MainAppViewModel mainAppView)
 		{
 			InitializeComponent ();
-            ViewModel = new MainAppViewModel() { Navigation = this.Navigation };
+            ViewModel = mainAppView;
+            mainAppView.Navigation = this.Navigation;
             BindingContext = ViewModel;
-            //subscribe to the message from the viewmodel, one of the test variant to show dialogs
-            MessagingCenter.Subscribe<MainAppViewModel, string>(this, "saveProjectMessage", (sender, arg) => {
-                DisplayAlert(" ", arg, "OK");
-            });
 
         }
 
@@ -32,9 +29,36 @@ namespace I_have_a_plan.Views
 
         private void btnChange_Clicked(object sender, EventArgs e)
         {
-            bool state = taskList.IsVisible;
-            taskList.IsVisible = projectList.IsVisible;
-            projectList.IsVisible = state;
+            //handler for the button on android, that showing projects or tasks
+            if (taskList.IsVisible)
+            {
+                taskList.IsVisible = projectList.IsVisible;
+                projectList.IsVisible = true;
+                btnChange.Text = "Return tasks";
+                this.Title = "Your Projects";
+            }
+            else
+            {
+                taskList.IsVisible = projectList.IsVisible;
+                projectList.IsVisible = false;
+                btnChange.Text = "Open projects";
+                this.Title = "Your tasks";
+            }
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            if (popupLoadingView.IsVisible == false)
+            {
+                popupLoadingView.IsVisible = true;
+                top.IsVisible = false;
+            }
+            else
+            {
+                popupLoadingView.IsVisible = false;
+                top.IsVisible = true;
+            }
+            //popupLoadingView.
         }
     }
 }

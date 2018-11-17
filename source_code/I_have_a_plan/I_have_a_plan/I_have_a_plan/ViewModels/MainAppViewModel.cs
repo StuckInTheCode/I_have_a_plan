@@ -22,6 +22,7 @@ namespace I_have_a_plan.ViewModels
         public ICommand SaveCommand { protected set; get; }
         public ICommand DeleteCommand { protected set; get; }
         public ICommand BackCommand { protected set; get; }
+        public ICommand OptionsCommand { protected set; get; }
 
         ProjectViewModel selectedProject;
 
@@ -51,6 +52,7 @@ namespace I_have_a_plan.ViewModels
             SaveCommand = new Command(SaveProject);
             BackCommand = new Command(Back);
             DeleteCommand = new Command(DeleteProject);
+            OptionsCommand = new Command(toTheOptions);
         }
 
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -192,6 +194,12 @@ namespace I_have_a_plan.ViewModels
         {
             Navigation.PushAsync(( new ProjectPage(selectedProject) ));
         }
+
+        private void toTheOptions(object sender)
+        {
+            Navigation.PushAsync((new OptionsPage(new OptionsViewModel())));
+        }
+
         protected void OnPropertyChanged(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
