@@ -52,7 +52,7 @@ namespace I_have_a_plan.Models
             }
             else
             {
-                notificationPeriod = 0;
+                notificationPeriod = 3;
             }
             if (App.Current.Properties.TryGetValue("notificationType", out obj))
             {

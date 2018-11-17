@@ -86,6 +86,7 @@ namespace I_have_a_plan.ViewModels
             set
             {
                 var result = PeriodList.FindIndex(x=> x==value);
+                result++;
                 if (Options.notificationPeriod != result)
                 {
                     Options.notificationPeriod = result;

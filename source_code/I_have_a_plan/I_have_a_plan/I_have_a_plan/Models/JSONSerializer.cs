@@ -10,6 +10,7 @@ namespace I_have_a_plan.Models
     {
         public  IFileService file;
         string projectFileName = "projectList.json";
+        string scheduleFileName = "schedule.json";
         public JSONSerializer()
         {
             file = DependencyService.Get<IFileService>();
@@ -19,6 +20,28 @@ namespace I_have_a_plan.Models
             
             string text = Newtonsoft.Json.JsonConvert.SerializeObject(projects);
             await file.WriteToFileAsync(projectFileName, text);
+        }
+
+        public async System.Threading.Tasks.Task SaveScheduleToJson(Dictionary<Int32,DateTime> schedule)
+        {
+            string text = Newtonsoft.Json.JsonConvert.SerializeObject(schedule);
+            await file.WriteToFileAsync(scheduleFileName, text);
+        }
+
+        public Dictionary<Int32, DateTime> LoadScheduleFromJson()
+        {
+            bool fileExisting = false;
+            System.Threading.Tasks.Task.Run(async () => { fileExisting = await file.IsFileExistAsync(scheduleFileName); }).Wait();
+            //check the file is existing
+            if (fileExisting)
+            {
+                string text = "";
+                System.Threading.Tasks.Task.Run(async () => { text = await file.ReadFromFileAsync(projectFileName); }).Wait();
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<Int32, DateTime>>(text);
+            }
+            else
+                return new Dictionary<Int32, DateTime>();
+            //throw new NotImplementedException();
         }
 
         public List<Project> LoadProjectsFromJson()
