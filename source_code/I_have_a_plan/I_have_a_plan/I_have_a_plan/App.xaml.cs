@@ -13,24 +13,23 @@ namespace I_have_a_plan
     public partial class App : Application
     {
         ProjectManager manager;
+        NotificationScheduler scheduler;
         public App()
         {
-
             DependencyService.Register<ViewModels.Services.IMessageService, Views.Services.MessageService>();
             InitializeComponent();
-            MainPage = new LoadingPage();
             manager = new ProjectManager();
-            //System.Threading.Tasks.Task.Run(async () => { await manager.Initialization; });
-            //manager.projectList = new List<Project>();
-            //JSONSerializer JSON = new JSONSerializer();
-            //System.Threading.Tasks.Task.Run(async () => { manager.projectList = await JSON.LoadProjectsFromJsonAsync(); }).Wait();
-            
+            scheduler = new NotificationScheduler();
+            if (!scheduler.IsScheduleExist())
+            {
+                scheduler.SetSchedule();
+            }
+            scheduler.SetAllAlarm();            
             MainPage = new NavigationPage(new MainAppPage(new MainAppViewModel(manager)));
         }
 
         protected  override void OnStart()
         {
-
             // Handle when your app starts
         }
 
@@ -41,6 +40,7 @@ namespace I_have_a_plan
 
         protected override void OnResume()
         {
+            //scheduler.SetSchedule();
             // Handle when your app resumes
         }
     }
