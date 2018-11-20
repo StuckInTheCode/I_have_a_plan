@@ -9,8 +9,8 @@ namespace I_have_a_plan.Models
     public class JSONSerializer
     {
         public  IFileService file;
-        string projectFileName = "projectList.json";
-        string scheduleFileName = "schedule.json";
+        readonly string projectFileName = "projectList.json";
+        readonly string scheduleFileName = "schedule.json";
         public JSONSerializer()
         {
             file = DependencyService.Get<IFileService>();
