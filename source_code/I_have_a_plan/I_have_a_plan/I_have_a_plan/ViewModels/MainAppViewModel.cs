@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using I_have_a_plan.Models;
+using I_have_a_plan.Views;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System.ComponentModel;
-using I_have_a_plan.Views;
-using I_have_a_plan.Models;
 
 namespace I_have_a_plan.ViewModels
 {
     public class MainAppViewModel : INotifyPropertyChanged
     {
         public ProjectManager projectManager;
-        public ObservableCollection<ProjectViewModel> Projects { get ; set; }
+        public ObservableCollection<ProjectViewModel> Projects { get; set; }
         public ObservableCollection<TaskViewModel> Tasks { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public INavigation Navigation { get; set; }
         public ICommand AddCommand { protected set; get; }
@@ -41,18 +37,17 @@ namespace I_have_a_plan.ViewModels
             }
         }
 
-        public MainAppViewModel( ProjectManager manager)
+        public MainAppViewModel(ProjectManager manager)
         {
             projectManager = manager;
 
             InitializeProjectViewCollection();
             Projects.CollectionChanged += Projects_CollectionChanged;
-
             AddCommand = new Command(AddProject);
             SaveCommand = new Command(SaveProject);
             BackCommand = new Command(Back);
             DeleteCommand = new Command(DeleteProject);
-            OptionsCommand = new Command(toTheOptions);
+            OptionsCommand = new Command(ToTheOptions);
         }
 
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -89,14 +84,15 @@ namespace I_have_a_plan.ViewModels
             {
                 foreach (ProjectViewModel newItem in e.NewItems)
                 {
-                    foreach (TaskViewModel newTask in newItem.Tasks) {
+                    foreach (TaskViewModel newTask in newItem.Tasks)
+                    {
                         Tasks.Add(newTask);
                     }
                     //Add listener for each item on PropertyChanged event
                     newItem.PropertyChanged += this.OnItemPropertyChanged;
                 }
             }
-            if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
             {
                 foreach (ProjectViewModel removingItem in e.OldItems)
                 {
@@ -144,11 +140,11 @@ namespace I_have_a_plan.ViewModels
 
         private void AddProject()
         {
-            if(Projects.Count == 50)
+            if (Projects.Count == 50)
                 MessagingCenter.Send<MainAppViewModel, string>(this, "saveProjectMessage", "Project count is maximum");
             else
                 // set the navigation of the current page as the root of the new page
-                Navigation.PushAsync(new AddingProjectPage(new ProjectViewModel() { ListViewModel = this , Navigation = this.Navigation }));
+                Navigation.PushAsync(new AddingProjectPage(new ProjectViewModel() { ListViewModel = this, Navigation = this.Navigation }));
 
         }
 
@@ -173,7 +169,7 @@ namespace I_have_a_plan.ViewModels
         {
 
             ProjectViewModel project = projectObject as ProjectViewModel;
-            
+
             if (project != null && project.IsValid)
             {
                 project.Trim();
@@ -187,15 +183,15 @@ namespace I_have_a_plan.ViewModels
                 Services.IMessageService MessageService = DependencyService.Get<Services.IMessageService>();
                 await MessageService.ShowAsync("Please fill empty fields");
             }
-            
+
         }
 
-        private void toTheProject(object sender)
+        private void ToTheProject(object sender)
         {
-            Navigation.PushAsync(( new ProjectPage(selectedProject) ));
+            Navigation.PushAsync((new ProjectPage(selectedProject)));
         }
 
-        private void toTheOptions(object sender)
+        private void ToTheOptions(object sender)
         {
             Navigation.PushAsync((new OptionsPage(new OptionsViewModel())));
         }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using I_have_a_plan.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.ComponentModel;
 using I_have_a_plan.Views;
+
 namespace I_have_a_plan.ViewModels
 {
     public class ProjectViewModel : INotifyPropertyChanged
@@ -175,7 +174,6 @@ namespace I_have_a_plan.ViewModels
         public void EditProject()
         {
             Navigation.PushAsync(new EditingProjectPage(new EditingProjectViewModel() { ViewModel = this , Project = new Project( this.Project)}));
-            //Navigation.PushAsync(new EditingProjectPage(new ProjectViewModel( new Project(this.Project)) { SaveCommand = this.SaveCommand } ));
         }
 
         private void AddTask()
@@ -219,26 +217,25 @@ namespace I_have_a_plan.ViewModels
         public void SaveTaskChanges(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
-
-            //await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
-                if (viewModel.IsValid)
-                {
-                    SelectedTask.Name = viewModel.Name;
-                    SelectedTask.Info = viewModel.Info;
-                    Navigation.PopAsync();
-                }
-                else
-                    MessageService.ShowAsync("Please fill the empty fields");
+            if (viewModel.IsValid)
+            {
+                SelectedTask.Name = viewModel.Name;
+                SelectedTask.Info = viewModel.Info;
+                Navigation.PopAsync();
+            }
+            else
+                MessageService.ShowAsync("Please fill the empty fields");
         }
 
         public async void SaveTask(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
-            //if task is valid
-            await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
-            Tasks.Add(viewModel);
-            OnPropertyChanged("TaskList");
-            await Navigation.PopAsync();
+            //if (viewModel.Task.IsValid())
+            //{
+                await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
+                Tasks.Add(viewModel);
+                OnPropertyChanged("TaskList");
+                await Navigation.PopAsync();
             //}
             //else
             //    MessageService.ShowAsync("Please fill the empty fields");
@@ -278,7 +275,6 @@ namespace I_have_a_plan.ViewModels
             {
                 DateTime currentDate = DateTime.Now;
                 int day, month, year;
-                double percentage;
                 // calculate the duration of the project
                 Int32.TryParse(Project.beginning.Substring(0, 2), out day);
                 Int32.TryParse(Project.beginning.Substring(3, 2), out month);

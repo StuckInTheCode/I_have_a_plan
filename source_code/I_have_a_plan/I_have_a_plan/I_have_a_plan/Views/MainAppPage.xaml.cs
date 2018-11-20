@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using I_have_a_plan.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace I_have_a_plan.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainAppPage : ContentPage, IAnimatable
 	{
         public MainAppViewModel ViewModel { get; private set; }
@@ -19,7 +15,6 @@ namespace I_have_a_plan.Views
             ViewModel = mainAppView;
             mainAppView.Navigation = this.Navigation;
             BindingContext = ViewModel;
-
         }
 
         private void projectList_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -58,7 +53,6 @@ namespace I_have_a_plan.Views
                 popupLoadingView.IsVisible = false;
                 top.IsVisible = true;
             }
-            //popupLoadingView.
         }
     }
 }

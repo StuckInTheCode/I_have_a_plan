@@ -19,7 +19,7 @@ namespace I_have_a_plan.ViewModels
         public TaskViewModel()
         {
             Task = new Task();
-            Task.name ="task";
+            Task.Name ="task";
             //Task.daysAll = lvm.getProjectDuration();
             test = 0;
         }
@@ -49,12 +49,12 @@ namespace I_have_a_plan.ViewModels
 
         public string Name
         {
-            get { return Task.name; }
+            get { return Task.Name; }
             set
             {
-                if (Task.name != value)
+                if (Task.Name != value)
                 {
-                    Task.name = value;
+                    Task.Name = value;
                     OnPropertyChanged("Name");
                 }
             }
@@ -93,12 +93,12 @@ namespace I_have_a_plan.ViewModels
 
         public string Info
         {
-            get { return Task.info; }
+            get { return Task.Info; }
             set
             {
-                if (Task.info != value)
+                if (Task.Info != value)
                 {
-                    Task.info = value;
+                    Task.Info = value;
                     OnPropertyChanged("Info");
                 }
             }
