@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
+
 namespace I_have_a_plan.Views
 {
     public class CustomCell : ViewCell
@@ -13,7 +12,7 @@ namespace I_have_a_plan.Views
         Label textLabel;
         Label titleLabel;
         ProgressBar progress;
-        Button show;
+        public Button show;
         bool showPressed;
         //Button close;
 
@@ -37,7 +36,11 @@ namespace I_have_a_plan.Views
             cell.Orientation = StackOrientation.Vertical;
 
             StackLayout headerLayout = new StackLayout();
+            headerLayout.Orientation = StackOrientation.Horizontal;
+
             headerLayout.Children.Add(titleLabel);
+            headerLayout.Children.Add(progress);
+
             headerView = headerLayout;
 
             cellView = new StackLayout();
@@ -100,12 +103,16 @@ namespace I_have_a_plan.Views
 
         public void Close_Clicked(object sender, EventArgs e)
         {
-            
-           cell.Children.Remove(MainView);
+            //cell.BindingContextChanged
+            //base.OnBindingContextChanged();
+            cell.Children.Remove(MainView);
         }
 
         private void Show_Clicked(object sender, EventArgs e)
         {
+            //base.
+            //var button = sender as Button;
+            //var user = button.BindingContext as ItemsView;
 
             if (!showPressed)
             {
@@ -119,12 +126,20 @@ namespace I_have_a_plan.Views
                 show.Text = "Open";
                 showPressed = false;
             }
+            //base.OnBindingContextChanged();
+
+            //this.
+            //this.OnTapped();
+            //base.OnBindingContextChanged();
             //this.OnPropertyChanged("MainView");
+            //return this;
         }
 
         public static readonly BindableProperty TitleProperty =
             BindableProperty.Create("Title", typeof(string), typeof(CustomCell), "");
 
+        public static readonly BindableProperty ShowButtonProperty =
+             BindableProperty.Create("ShowButton", typeof(Button), typeof(CustomCell), null);
 
         public static readonly BindableProperty mainViewProperty =
            BindableProperty.Create("MainView", typeof(View), typeof(CustomCell), null);
@@ -136,6 +151,12 @@ namespace I_have_a_plan.Views
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
+        }
+
+        public Button Show
+        {
+            get { return (Button)GetValue(ShowButtonProperty); }
+            set { SetValue(ShowButtonProperty, value); }
         }
 
         public View MainView
@@ -157,18 +178,15 @@ namespace I_have_a_plan.Views
             if (BindingContext != null)
             {
                 titleLabel.Text = Title;
-                //cell.Children.Remove(HeaderView);
-                //cell.Children.Remove(MainView);
+                show.BindingContext = Show.BindingContext;
+                // reset the headerView to update the cellView
                 cellView.Children.Remove(headerView);
                 cellView.Children.Remove(show);
                 mainView = MainView;
                 headerView = HeaderView;
-                cellView.Children.Add(headerView);
+                cellView.Children.Add(HeaderView);
                 cellView.Children.Add(show);
-                //cellView.Children.Remove(show);
-                //cellView.Children.Insert(0, HeaderView);
-                //cellView.Children.Add(show);
-                //cell.Children.Insert(0,cellView);
+
             }
         }
     }
