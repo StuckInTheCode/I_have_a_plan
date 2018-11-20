@@ -7,25 +7,25 @@ namespace I_have_a_plan.Models
 {
     class NotificationScheduler
     {
-        //private string schedule;
-
         private readonly Dictionary<Int32, DateTime> notifications;
+        private ILocalToastNotification notificationService;
 
         public NotificationScheduler()
         {
+            notificationService = Xamarin.Forms.DependencyService.Get<ILocalToastNotification>();
             notifications = LoadSchedule();
         }
 
-        void SetAlarm(string message, int id, DateTime time)
+        public void SetAlarm(string message, int id, DateTime time)
         {
-            CrossLocalNotifications.Current.Show("I have a plan!", message, id,time);
+            notificationService.ShowScheduledMessage("I have a plan!",message, id, false, time);
         }
 
         void RemoveAlarms()
         {
             foreach(KeyValuePair<Int32,DateTime> element in notifications)
             {
-                CrossLocalNotifications.Current.Cancel(element.Key);
+                notificationService.CancelMessage(element.Key);
             }
 
         }

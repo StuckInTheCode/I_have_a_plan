@@ -1,13 +1,10 @@
 ﻿using I_have_a_plan.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace I_have_a_plan.ViewModels
 {
-   public class OptionsViewModel
+    public class OptionsViewModel
     {
         private Options Options;
 
@@ -16,14 +13,17 @@ namespace I_have_a_plan.ViewModels
             Options = new Options();
             TypeList = new List<string>();
             PeriodList = new List<string>();
-
             TypeList.AddRange(new string[] { "Sound", "Sound and vibration", "Vibration", "No sound" });
-
             PeriodList.AddRange(new string[] { "1 hour", "2 hours", "3 hours",
                 "4 hours", "5 hours", "6 hours", "7 hours", "8 hours", "9 hours",
                 "10 hours", "11 hours", "12 hours", "13 hours", "14 hours", "15 hours",
                 "16 hours", "17 hours", "18 hours", "19 hours", "20 hours", "21 hours",
                 "22 hours", "23 hours", "24 hours" });
+        }
+
+        public OptionsViewModel(Options options)
+        {
+            Options = options;
         }
 
         public List<string> TypeList { get; }
@@ -81,12 +81,11 @@ namespace I_have_a_plan.ViewModels
         {
             get
             {
-                return PeriodList[Options.notificationPeriod];
+                return PeriodList[Options.notificationPeriod--];
             }
             set
             {
                 var result = PeriodList.FindIndex(x=> x==value);
-                result++;
                 if (Options.notificationPeriod != result)
                 {
                     Options.notificationPeriod = result;
@@ -94,7 +93,5 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
-
-
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace I_have_a_plan.Models
 {
@@ -27,26 +25,31 @@ namespace I_have_a_plan.Models
         public async void SaveOptions()
         {
             JSONSerializer jSON = new JSONSerializer();
-            if (App.Current.Properties.Count != 0)
+            Xamarin.Forms.Application current = Xamarin.Forms.Application.Current;
+            if (current.Properties.Count == 0)
             {
-                App.Current.Properties["notificationPeriod"] = notificationPeriod;
-                App.Current.Properties["notificationType"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationType);
-                App.Current.Properties["notificationStartTime"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationStartTime);
-                App.Current.Properties["notificationEndTime"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationEndTime);
+                current.Properties.Add("notificationPeriod", notificationPeriod);
+                current.Properties.Add("notificationType", Newtonsoft.Json.JsonConvert.SerializeObject(notificationType));
+                current.Properties.Add("notificationStartTime", Newtonsoft.Json.JsonConvert.SerializeObject(notificationStartTime));
+                current.Properties.Add("notificationEndTime", Newtonsoft.Json.JsonConvert.SerializeObject(notificationEndTime));
             }
             else
-            {
-                App.Current.Properties.Add("notificationPeriod", notificationPeriod);
-                App.Current.Properties.Add("notificationType", Newtonsoft.Json.JsonConvert.SerializeObject(notificationType));
-                App.Current.Properties.Add("notificationStartTime", Newtonsoft.Json.JsonConvert.SerializeObject(notificationStartTime));
-                App.Current.Properties.Add("notificationEndTime", Newtonsoft.Json.JsonConvert.SerializeObject(notificationEndTime));
-            }
-            await App.Current.SavePropertiesAsync();
+                AddOptions(current);
+            await current.SavePropertiesAsync();
+        }
+
+        private void AddOptions(Xamarin.Forms.Application current)
+        {
+            current.Properties["notificationPeriod"] = notificationPeriod;
+            //save objects as serialized instance
+            current.Properties["notificationType"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationType);
+            current.Properties["notificationStartTime"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationStartTime);
+            current.Properties["notificationEndTime"] = Newtonsoft.Json.JsonConvert.SerializeObject(notificationEndTime);
         }
 
         public void LoadOptions()
         {
-            if (App.Current.Properties.TryGetValue("notificationPeriod", out object obj))
+            if (Xamarin.Forms.Application.Current.Properties.TryGetValue("notificationPeriod", out object obj))
             {
                 notificationPeriod = (int)obj;
             }
@@ -54,7 +57,7 @@ namespace I_have_a_plan.Models
             {
                 notificationPeriod = 3;
             }
-            if (App.Current.Properties.TryGetValue("notificationType", out obj))
+            if (Xamarin.Forms.Application.Current.Properties.TryGetValue("notificationType", out obj))
             {
                 notificationType = Newtonsoft.Json.JsonConvert.DeserializeObject<NotificationType>(obj.ToString());
             }
@@ -62,7 +65,7 @@ namespace I_have_a_plan.Models
             {
                 notificationType = NotificationType.Sound;
             }
-            if (App.Current.Properties.TryGetValue("notificationStartTime", out obj))
+            if (Xamarin.Forms.Application.Current.Properties.TryGetValue("notificationStartTime", out obj))
             {
                 notificationStartTime = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeSpan>(obj.ToString());
             }
@@ -70,7 +73,7 @@ namespace I_have_a_plan.Models
             {
                 notificationStartTime = new TimeSpan();
             }
-            if (App.Current.Properties.TryGetValue("notificationEndTime", out obj))
+            if (Xamarin.Forms.Application.Current.Properties.TryGetValue("notificationEndTime", out obj))
             {
                 notificationEndTime = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeSpan>(obj.ToString());
             }
