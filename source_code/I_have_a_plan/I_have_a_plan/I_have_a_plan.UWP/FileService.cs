@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Xamarin.Forms;
@@ -33,22 +30,19 @@ namespace I_have_a_plan.UWP
         public async Task<string> ReadFromFileAsync(string filename)
         {
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            // получаем файл
             StorageFile helloFile = await localFolder.GetFileAsync(filename);
-            // читаем файл
             string text = await FileIO.ReadTextAsync(helloFile);
             return text;
         }
 
         public async Task WriteToFileAsync(string filename, string text)
         {
-            // получаем локальную папку
             StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-            // создаем файл hello.txt
-            StorageFile helloFile = await localFolder.CreateFileAsync(filename,
+            //create temporary file
+            StorageFile tempFile = await localFolder.CreateFileAsync(filename,
            CreationCollisionOption.ReplaceExisting);
-            // запись в файл
-            await FileIO.WriteTextAsync(helloFile, text);
+            //write to the temporary file
+            await FileIO.WriteTextAsync(tempFile, text);
         }
     }
 }

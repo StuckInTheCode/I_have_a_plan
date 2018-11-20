@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(I_have_a_plan.Droid.FileService))]
@@ -25,10 +16,10 @@ namespace I_have_a_plan.Droid
 
         public Task<bool> IsFileExistAsync(string filename)
         {
-            // получаем путь к файлу
+            //get filepath
             string filepath = GetFilePath(filename);
-            // существует ли файл
             bool exists = File.Exists(filepath);
+            //if file exist return result of finding operation
             return Task<bool>.FromResult(exists);
         }
 
@@ -49,14 +40,16 @@ namespace I_have_a_plan.Droid
                 await writer.WriteAsync(text);
             }
         }
-        // вспомогательный метод для построения пути к файлу
+
         string GetFilePath(string filename)
         {
+            //create path
             return Path.Combine(GetDocsPath(), filename);
         }
-        // получаем путь к папке MyDocuments
+
         string GetDocsPath()
         {
+            //MyDocuments folder
             return System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
         }
 

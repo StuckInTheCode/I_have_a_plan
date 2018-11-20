@@ -1,10 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace I_have_a_plan.Droid
@@ -16,10 +12,12 @@ namespace I_have_a_plan.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+            var not = Application.ApplicationContext.GetSystemService(Context.NotificationService) as NotificationManager;
+            
+            var alarmManager = Application.Context.GetSystemService(Context.AlarmService) as AlarmManager;
         }
     }
 }

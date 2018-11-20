@@ -1,36 +1,34 @@
-﻿using System;
-using I_have_a_plan.Views;
+﻿using I_have_a_plan.Models;
 using I_have_a_plan.ViewModels;
-using I_have_a_plan.Models;
+using I_have_a_plan.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Collections.Generic;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace I_have_a_plan
 {
-    
+
     public partial class App : Application
     {
-        ProjectManager manager;
-        NotificationScheduler scheduler;
+        private ProjectManager manager;
         public App()
         {
             DependencyService.Register<ViewModels.Services.IMessageService, Views.Services.MessageService>();
             InitializeComponent();
             manager = new ProjectManager();
-            scheduler = new NotificationScheduler();
-            if (!scheduler.IsScheduleExist())
-            {
-                scheduler.SetSchedule();
-            }
-            scheduler.SetAllAlarm();            
             MainPage = new NavigationPage(new MainAppPage(new MainAppViewModel(manager)));
         }
 
         protected  override void OnStart()
         {
-            // Handle when your app starts
+            NotificationScheduler scheduler = new NotificationScheduler();
+            if (!scheduler.IsScheduleExist())
+            {
+                scheduler.SetSchedule();
+            }
+            scheduler.SetAllAlarm();
+            scheduler.SetAlarm("hello", -1, DateTime.Now.AddMinutes(1));
         }
 
         protected override void OnSleep()
@@ -40,7 +38,6 @@ namespace I_have_a_plan
 
         protected override void OnResume()
         {
-            //scheduler.SetSchedule();
             // Handle when your app resumes
         }
     }
