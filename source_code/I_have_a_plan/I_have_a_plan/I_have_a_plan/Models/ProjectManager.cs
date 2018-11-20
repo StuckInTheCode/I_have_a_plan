@@ -58,7 +58,7 @@ namespace I_have_a_plan.Models
         public async System.Threading.Tasks.Task AddTaskToTheProject(Task curTask, Project curProject)
         {
             Project editProject = projectList.Find(x => x.id == curProject.id);
-            editProject.addTask(curTask);
+            editProject.AddTask(curTask);
             //taskList.Add(curProject, curTask);
             JSONSerializer JSON = new JSONSerializer();
             await JSON.SaveProjectsToJsonAsync(projectList);
@@ -67,7 +67,7 @@ namespace I_have_a_plan.Models
         public async System.Threading.Tasks.Task DeleteTaskFromCurrentProject(Task task, Project project)
         {
             Project editProject = projectList.Find(x => x.id == project.id);
-            editProject.deleteTask(task);
+            editProject.DeleteTask(task);
             //taskList.Add(curProject, curTask);
             JSONSerializer JSON = new JSONSerializer();
             await JSON.SaveProjectsToJsonAsync(projectList);
@@ -100,7 +100,7 @@ namespace I_have_a_plan.Models
         /// </returns>
         public bool CheckProjectTaskCount(Project curProject)
         {
-            return curProject.checkTaskCount();
+            return curProject.CheckTaskCount();
         }
 
 
