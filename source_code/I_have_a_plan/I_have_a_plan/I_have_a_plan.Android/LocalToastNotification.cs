@@ -1,5 +1,5 @@
-﻿using Plugin.LocalNotifications;
-using System;
+﻿using System;
+using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(I_have_a_plan.Droid.LocalToastNotification))]

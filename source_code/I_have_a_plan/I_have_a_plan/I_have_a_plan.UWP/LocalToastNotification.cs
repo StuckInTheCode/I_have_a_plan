@@ -50,6 +50,9 @@ namespace I_have_a_plan.UWP
 
         public void ShowScheduledMessage(string name, string message, int id, bool silent, DateTime time)
         {
+            //Dont set the past time notification
+            if (time < DateTime.Now)
+                return;
             //Toast template
             ToastContent toastContent = new ToastContent
             {
@@ -92,8 +95,10 @@ namespace I_have_a_plan.UWP
 
             };
             XmlDocument doc = toastContent.GetXml();
-            ScheduledToastNotification toast = new ScheduledToastNotification(doc, time);
-            toast.Id = id.ToString();
+            ScheduledToastNotification toast = new ScheduledToastNotification(doc, time)
+            {
+                Id = id.ToString()
+            };
             ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
         }
     }

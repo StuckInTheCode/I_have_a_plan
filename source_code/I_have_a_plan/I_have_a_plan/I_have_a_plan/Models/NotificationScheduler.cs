@@ -27,14 +27,12 @@ namespace I_have_a_plan.Models
             {
                 notificationService.CancelMessage(element.Key);
             }
-
         }
 
         Dictionary<Int32, DateTime> LoadSchedule()
         {
             JSONSerializer serializer = new JSONSerializer();
             return serializer.LoadScheduleFromJson();
-
         }
 
         public void SetSchedule()
@@ -46,7 +44,6 @@ namespace I_have_a_plan.Models
             var day = DateTime.Today;
             var endOfDay = day + properties.notificationEndTime;
             day += properties.notificationStartTime;
-
             while(day < endOfDay)
             {
                 notifications.Add(notifications.Count, day);
@@ -58,7 +55,6 @@ namespace I_have_a_plan.Models
         {
             foreach (KeyValuePair<Int32, DateTime> element in notifications)
             {
-
                 SetAlarm("You have some task to do today. Click to show more...", element.Key, element.Value);
             }
         }

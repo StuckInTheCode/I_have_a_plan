@@ -11,10 +11,12 @@ namespace I_have_a_plan.Models
         public  IFileService file;
         readonly string projectFileName = "projectList.json";
         readonly string scheduleFileName = "schedule.json";
+
         public JSONSerializer()
         {
             file = DependencyService.Get<IFileService>();
         }
+
         public async System.Threading.Tasks.Task SaveProjectsToJsonAsync(List<Project> projects)
         {
             
