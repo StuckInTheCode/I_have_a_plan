@@ -15,7 +15,5 @@ namespace I_have_a_plan.Views
             viewModel = vm;
             this.BindingContext = viewModel;
         }
-        
-        
 	}
 }

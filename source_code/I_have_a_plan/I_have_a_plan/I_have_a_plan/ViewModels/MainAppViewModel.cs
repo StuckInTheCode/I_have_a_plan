@@ -145,7 +145,6 @@ namespace I_have_a_plan.ViewModels
             else
                 // set the navigation of the current page as the root of the new page
                 Navigation.PushAsync(new AddingProjectPage(new ProjectViewModel() { ListViewModel = this, Navigation = this.Navigation }));
-
         }
 
         private async void DeleteProject(object projectObject)
@@ -167,7 +166,6 @@ namespace I_have_a_plan.ViewModels
 
         private async void SaveProject(object projectObject)
         {
-
             ProjectViewModel project = projectObject as ProjectViewModel;
 
             if (project != null && project.IsValid)
@@ -183,7 +181,6 @@ namespace I_have_a_plan.ViewModels
                 Services.IMessageService MessageService = DependencyService.Get<Services.IMessageService>();
                 await MessageService.ShowAsync("Please fill empty fields");
             }
-
         }
 
         private void ToTheProject(object sender)

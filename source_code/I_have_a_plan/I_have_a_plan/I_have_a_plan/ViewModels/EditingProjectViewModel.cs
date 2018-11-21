@@ -57,6 +57,7 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
+
         public double PercentageComplited
         {
             get { return Project.percentageComplited; }
@@ -82,6 +83,7 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
+
         public string Beginning
         {
             get { return Project.beginning; }
