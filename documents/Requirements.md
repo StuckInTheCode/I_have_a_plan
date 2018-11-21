@@ -197,13 +197,6 @@ Function | Requirements
 |Counting the number of days until work ends | The application should display the number of days remaining to complete the project.|
 |Accounting for the number of days of work on each task|The application should display the percentage of the number of days with the completed task.|
 
-##### 3.1.1.2\. Done daily tasks <a name="3.1.1.2"></a>
-<b>Description: </b> The user has the ability to mark the tasks as completed in application.
-
-Function | Requirements
-| :--- | :---
-Done daily task |The application must keep a daily record of the tasks marked by the user as completed.
-
 ##### 3.1.1.3\. Adding project <a name="3.1.1.3"></a>
 <b>Description: </b> The user has the ability to add project with additional information in the application.
 
