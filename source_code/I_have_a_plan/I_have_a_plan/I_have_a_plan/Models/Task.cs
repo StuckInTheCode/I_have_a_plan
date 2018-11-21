@@ -12,6 +12,7 @@ namespace I_have_a_plan.Models
         public Int32 DaysFinished { get; set; }
         public Int32 DaysAll { get; set; }
         public double percentageComplited;
+
         public Int32 ConvertDaysToPercentage()
         {
             percentageComplited = (double) DaysFinished / DaysAll;

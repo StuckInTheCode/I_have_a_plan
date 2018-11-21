@@ -103,6 +103,7 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
+
         private double PercentageComplited
         {
             get { return Project.percentageComplited; }
@@ -128,6 +129,7 @@ namespace I_have_a_plan.ViewModels
                 }
             }
         }
+
         public string Beginning
         {
             get { return Project.beginning; }
@@ -184,7 +186,14 @@ namespace I_have_a_plan.ViewModels
         public void EditTask(object taskObject)
         {
             TaskViewModel taskViewModel = taskObject as TaskViewModel;
-            SelectedTask = taskViewModel;
+            //foreach (TaskViewModel curTask in Tasks)
+            //{
+            //    if (taskViewModel == curTask)
+            //    {
+            //        SelectedTask = curTask;
+            //    }
+            //}
+            //SelectedTask = taskViewModel;
             Navigation.PushAsync(new EditingTaskPage(new TaskViewModel(taskViewModel)));
         }
 
@@ -214,31 +223,31 @@ namespace I_have_a_plan.ViewModels
             MessageService.ShowAsync("Please fill the empty fields");
         }
 
-        public void SaveTaskChanges(object taskObject)
+        public async void SaveTaskChanges(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
             if (viewModel.IsValid)
             {
                 SelectedTask.Name = viewModel.Name;
                 SelectedTask.Info = viewModel.Info;
-                Navigation.PopAsync();
+                await Navigation.PopAsync();
             }
             else
-                MessageService.ShowAsync("Please fill the empty fields");
+                await MessageService.ShowAsync("Please fill the empty fields");
         }
 
         public async void SaveTask(object taskObject)
         {
             TaskViewModel viewModel = taskObject as TaskViewModel;
-            //if (viewModel.Task.IsValid())
-            //{
+            if (viewModel.IsValid)
+            {
                 await ListViewModel.projectManager.AddTaskToTheProject(viewModel.Task, Project);
                 Tasks.Add(viewModel);
                 OnPropertyChanged("TaskList");
                 await Navigation.PopAsync();
-            //}
-            //else
-            //    MessageService.ShowAsync("Please fill the empty fields");
+            }
+            else
+                await MessageService.ShowAsync("Please fill the empty fields");
         }
 
         private bool IsDateValid()

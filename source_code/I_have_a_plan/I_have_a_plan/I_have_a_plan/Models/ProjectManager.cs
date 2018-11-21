@@ -10,6 +10,7 @@ namespace I_have_a_plan.Models
     {
         public  List<Project> projectList { get; set; }
         private  Int32 projectCount;
+
         public ProjectManager()
         {
             JSONSerializer JSON = new JSONSerializer();
@@ -19,6 +20,7 @@ namespace I_have_a_plan.Models
             //Initialization = InitializeAsync();
 
         }
+
         public System.Threading.Tasks.Task Initialization { get; private set; }
 
         private async System.Threading.Tasks.Task InitializeAsync()
