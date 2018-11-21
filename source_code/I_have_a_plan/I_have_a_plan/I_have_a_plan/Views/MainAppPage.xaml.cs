@@ -9,6 +9,7 @@ namespace I_have_a_plan.Views
 	public partial class MainAppPage : ContentPage, IAnimatable
 	{
         public MainAppViewModel ViewModel { get; private set; }
+
         public MainAppPage (MainAppViewModel mainAppView)
 		{
 			InitializeComponent ();

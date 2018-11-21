@@ -21,7 +21,7 @@
                 <OnPlatform x:TypeArguments="x:String" WinPhone="Calendar"/>
             </ToolbarItem.Name>
         </ToolbarItem>
-        <ToolbarItem  Order="Default" Icon="Microsoft.png" Priority="0"  Command="{Binding OptionsCommand}" CommandParameter="{Binding}"/>
+        <ToolbarItem  Order="Default" Icon="Microsoft.png" Text="Options" Priority="0"  Command="{Binding OptionsCommand}" CommandParameter="{Binding}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="Fill" Padding="10,10,10,10" >
@@ -74,9 +74,9 @@
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Vertical">
-                                        <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <Label Text="{Binding Name}" />
-                                            <Switch IsToggled ="False"/>
+                                            <Switch IsToggled ="False" HorizontalOptions="EndAndExpand"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </ViewCell.View>

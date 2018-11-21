@@ -8,6 +8,7 @@ namespace I_have_a_plan.Views
 	public partial class ProjectPage : ContentPage
 	{
         public ProjectViewModel ViewModel { get; private set; }
+
         public ProjectPage(ProjectViewModel vm)
         {
             ViewModel = vm;
