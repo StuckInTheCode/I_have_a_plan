@@ -1,8 +1,8 @@
-Main Pattern Used 
-1.MVVM
-2.Dependency Service - Platform specific code
-3.Dependency Injection - ProjectManager
-4.Composite - XAML
-5.Adapter - JSONSerializer
-6.Command - Commands in binding
-7.Observer - ObservableCollections
+Main Pattern Used <br>
+1.MVVM<br>
+2.Dependency Service - Platform specific code<br>
+3.Dependency Injection - ProjectManager<br>
+4.Composite - XAML<br>
+5.Adapter - JSONSerializer<br>
+6.Command - Commands in binding<br>
+7.Observer - ObservableCollections<br>
