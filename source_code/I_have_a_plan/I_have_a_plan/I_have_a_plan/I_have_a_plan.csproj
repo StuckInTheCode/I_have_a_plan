@@ -5,6 +5,10 @@
     <Product>I have a plan!</Product>
     <Company>StuckInTheCode</Company>
     <Authors>Galina K.</Authors>
+    <AssemblyName>I have a plan!</AssemblyName>
+    <PackageLicenseUrl>https://github.com/StuckInTheCode/I_have_a_plan/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/StuckInTheCode/I_have_a_plan</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
