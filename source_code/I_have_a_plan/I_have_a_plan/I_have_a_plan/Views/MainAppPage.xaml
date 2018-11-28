@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:I_have_a_plan.Views"
+             x:Class="I_have_a_plan.Views.MainAppPage"
+             xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar"
+             x:Name="content"
+             Title="Your Tasks"
+             Padding="20,20,20,20" BackgroundColor="AliceBlue">
+    <ContentPage.Title>
+        <OnIdiom x:TypeArguments="x:String" Desktop="Your Projects"></OnIdiom>
+    </ContentPage.Title>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Order="Default" Icon="Microsoft.png" Priority="0"  Command="{Binding AddCommand}" CommandParameter="{Binding}">
+            <ToolbarItem.Name>
+                <OnPlatform x:TypeArguments="x:String" WinPhone="Add project"/>
+            </ToolbarItem.Name>
+        </ToolbarItem>
+        <ToolbarItem Order="Primary" Icon="Xamarin.png" Priority="1" Clicked="ToolbarItem_Clicked">
+            <ToolbarItem.Name>
+                <OnPlatform x:TypeArguments="x:String" WinPhone="Calendar"/>
+            </ToolbarItem.Name>
+        </ToolbarItem>
+        <ToolbarItem  Order="Default" Icon="Microsoft.png" Text="Options" Priority="0"  Command="{Binding OptionsCommand}" CommandParameter="{Binding}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="Fill" Padding="10,10,10,10" >
+            <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 10" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <controls:Calendar 
+			    Padding="10,0,10,0" 
+			    SelectedBorderWidth="4" 
+			    DisabledBorderColor="Black"
+			    ShowNumberOfWeek="false"
+			    StartDay="Monday"
+			    TitleLabelTextColor="Purple"
+			    TitleLeftArrowTextColor="Blue" >
+                </controls:Calendar>
+            </ContentView>
+            <StackLayout x:Name="top" Padding="10,10,10,10" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout.Orientation>
+                    <OnPlatform  x:TypeArguments="StackOrientation" Android="Vertical" WinPhone="Horizontal"/>
+                </StackLayout.Orientation>
+
+                <ListView x:Name = "projectList" ItemsSource="{Binding Projects}" HasUnevenRows="True"
+                       SelectedItem="{Binding SelectedProject}" ItemTapped ="projectList_ItemTapped">
+                    <ListView.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" WinPhone="True" Android="False" ></OnPlatform>
+                    </ListView.IsVisible>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Icon" />
+                                            <Label Text="{Binding Name}" />
+                                        </StackLayout>
+                                        <ProgressBar Progress="{Binding PercentageComplited}" VerticalOptions="Center" WidthRequest="100" BackgroundColor="Aqua"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button x:Name="btnChange" Text="Open projects" Clicked="btnChange_Clicked">
+                    <Button.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" Android="True" Default="False"></OnPlatform>
+                    </Button.IsVisible>
+                </Button>
+                <ListView x:Name = "taskList" ItemsSource="{Binding Tasks}" HasUnevenRows="True" IsVisible="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding Name}" />
+                                            <Switch IsToggled ="False" HorizontalOptions="EndAndExpand"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

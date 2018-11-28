@@ -12,6 +12,7 @@ Platform: UWP (Windows 10 version 1803), Android 8.0+<br>
 1. [Requirements](documents/Requirements.md)<br>
 2. [System design](documents/uml_diagrams/uml_diagrams.md)<br>
 3. [Glossary](documents/glossary.md)<br>
+4. [Patterns](source_code/I_have_a_plan/README.md)<br>
 
 
 > Written with [StackEdit](https://stackedit.io/).

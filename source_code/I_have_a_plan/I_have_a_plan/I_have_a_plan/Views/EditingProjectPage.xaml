@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="I_have_a_plan.Views.EditingProjectPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout x:Name="friendStack" HorizontalOptions="StartAndExpand">
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}" FontSize="Medium"/>
+                <Label Text="Deadline" />
+                <Entry Text="{Binding Deadline}" FontSize="Medium" />
+                <Label Text="Beginning" />
+                <Entry Text="{Binding Beginning}" FontSize="Medium" />
+                <Label Text="Information about project" />
+                <Entry Text="{Binding Info}" FontSize="Small" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button x:Name ="SaveButton" Text="Сохранить" Command="{Binding ViewModel.SaveCommand}" CommandParameter="{Binding}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
