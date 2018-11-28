@@ -4,9 +4,9 @@
 </br>
 
 1.MVVM - The MVVM pattern is one of the most commonly used patterns. MVVM means the separation of program code into modules view, viewmodel, model.
-
 <br>
-![MVVM](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm-images/mvvm.png)
+![MVVM]
+(https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm-images/mvvm.png)
 </br>
 
   1.1.View<br>
@@ -19,9 +19,9 @@ All pages of the application are implemented using this pattern. Views are repre
 
 2.Dependency Service - To use the same services on different platforms, all services interfaces are implemented in the platform specific solutions and connected to the DependencyService. This functionality enables Xamarin.Forms apps to do anything that a native app can do. 
 The structure of the application is explained by the following diagram in the microsoft documentation:
-
 <br>
-[!DependencyService] (https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/introduction-images/overview-diagram.png)
+[!DependencyService]
+(https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/introduction-images/overview-diagram.png)
 <br>
 
 3.Dependency Injection - The main class of the application - App - acts as Dependency injector. Dependency injection is a specialized version of the Inversion of Control (IoC) pattern, where the concern being inverted is the process of obtaining the required dependency. With dependency injection, another class is responsible for injecting dependencies into an object at runtime. Commonly and in my implementation, dependency injector create a new instance of a class and pass the dependency through the constructor to add it to the instance. For example, Navigation of the page and project manager instance are injected to the mainappviewmodel by the app class. <br>
