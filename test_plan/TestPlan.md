@@ -102,7 +102,8 @@ It is also important to check correctness of non- functional requirements:
 The application will be tested manually.
 
 # 6 <a name = "6"> Pass / Fail Criteria </a>
-Results of testing are represented in [this document](test_results.md)
+Results of testing are represented in [this document](TestResults.md)
+
 # 7 <a name = "7"> Conclusion </a>
 This test plan allows to test the main functionality of the application. Successful completion of the test plan does not guarantee full operability, allows to believe that the app works correctly.</br>
 
