@@ -14,6 +14,14 @@ Platform: UWP (Windows 10 version 1803), Android 8.0+<br>
 3. [Glossary](documents/glossary.md)<br>
 4. [Patterns](source_code/I_have_a_plan/README.md)<br>
 
+### [Source code](source_code/I_have_a_plan)<br>
+
+### [License](license.md)<br>
+
+### [Testing](test_plan)<br>
+1. [Test plan](test_plan/TestPlan.md)<br>
+2. [Test results](test_plan/TestResults.md)<br>
+
 ## Issue reporting guidelines
 To maintain an effective issues and bug fix workflow, please, follow some simple guidelines.
 <br>
