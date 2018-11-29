@@ -31,6 +31,12 @@
 | 30 | Correct external interfaces according to system requirements|  |<br>1. Launch the app "I have a plan!"</br><br>2. Check sufficiency of font size and sizes of functional elements| Font size of functional elements should more than 12 pt (this is equivalent to to the small size of the xamarin forms standart sizes). Functional elements are equal in size or larger than the main text on the screen | Font size of functional elements is equivalent to to the small size of the xamarin forms standart sizes. Functional elements are equal in size or larger than the main text on the screen | Pass |
 | 31 | Working without Internet connection | Internet connection disabled|<br>1. Launch the app "I have a plan!"</br><br> 2. Main page is loaded | App works properly without any exceptions or limitations, that not presented in the SRS | The application works regardless of internet connection | Pass |
 
+The total number of successfully passed tests: 30 out of 31
+
+The number of successfully passed functional tests: 27 of 28
+
+The number of successfully completed non-functional tests: 3 of 3
+
 
 
 > Written with [StackEdit](https://stackedit.io/).
