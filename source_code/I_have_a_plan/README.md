@@ -7,16 +7,14 @@
 ![MVVM](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm-images/mvvm.png)
 </br>
 <br>
-- 1.1 View
   The view is responsible for defining the structure, layout, and appearance of what the user sees on screen. Ideally, each view is defined in XAML, with a limited code-behind that does not contain business logic.</br>
-  <br>
- - 1.2 ViewModel
+<br>
   View is associated with the ViewModel using a binding that is supported by this framework. The view model implements properties and commands to which the view can data bind to, and notifies the view of any state changes through change notification events. The properties and commands that the view model provides define the functionality to be offered by the UI, but the view determines how that functionality is to be displayed.</br>
-    <br>
-  - 1.3 Model 
+ <br>
   Model classes are non-visual classes that encapsulate the app's data. The model interacts with the viewmodel directly.
 All pages of the application are implemented using this pattern. Views are represented by -pages classes. ViewModels are represeted by -viewModels classes.</br><br>
-For example, OptionPage has binding with OptionViewModel. OptionViewModel contains a Option object and defines interection with this object fields. When the value of the option parameters is changed, OptionViewModel notify the OptionPage about necessery changes.</br>
+For example, OptionPage has binding with OptionViewModel. OptionViewModel contains a Option object and defines interection with this object fields. When the value of the option parameters is changed, OptionViewModel notify the OptionPage about necessery changes.
+</br>
 
 2. Dependency Service - To use the same services on different platforms, all services interfaces are implemented in the platform specific solutions and connected to the DependencyService. This functionality enables Xamarin.Forms apps to do anything that a native app can do. 
 The structure of the application is explained by the following diagram in the microsoft documentation:
