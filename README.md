@@ -16,7 +16,7 @@ Platform: UWP (Windows 10 version 1803), Android 8.0+<br>
 
 ### [Source code](source_code/I_have_a_plan)<br>
 
-### [License](license.md)<br>
+### [License](LICENSE)<br>
 
 ### [Testing](test_plan)<br>
 1. [Test plan](test_plan/TestPlan.md)<br>
