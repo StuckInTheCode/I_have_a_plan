@@ -2,9 +2,8 @@
 <br>
 ![Class](https://raw.githubusercontent.com/StuckInTheCode/I_have_a_plan/master/documents/uml_diagrams/ClassDiagram/ClassDiagramPatterns.png)
 </br>
-
-1. MVVM - The MVVM pattern is one of the most commonly used patterns. MVVM means the separation of program code into modules view, viewmodel, model.
 <br>
+1. MVVM - The MVVM pattern is one of the most commonly used patterns. MVVM means the separation of program code into modules view, viewmodel, model.
 ![MVVM](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm-images/mvvm.png)
 </br>
 <br>
@@ -17,18 +16,18 @@
   - 1.3 Model 
   Model classes are non-visual classes that encapsulate the app's data. The model interacts with the viewmodel directly.
 All pages of the application are implemented using this pattern. Views are represented by -pages classes. ViewModels are represeted by -viewModels classes.</br><br>
+For example, OptionPage has binding with OptionViewModel. OptionViewModel contains a Option object and defines interection with this object fields. When the value of the option parameters is changed, OptionViewModel notify the OptionPage about necessery changes.</br>
 
 2. Dependency Service - To use the same services on different platforms, all services interfaces are implemented in the platform specific solutions and connected to the DependencyService. This functionality enables Xamarin.Forms apps to do anything that a native app can do. 
 The structure of the application is explained by the following diagram in the microsoft documentation:
-<br>
 ![DependecyService](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/introduction-images/overview-diagram.png)
-<br>
+</br>
 
 3. Dependency Injection - The main class of the application - App - acts as Dependency injector. Dependency injection is a specialized version of the Inversion of Control (IoC) pattern, where the concern being inverted is the process of obtaining the required dependency. With dependency injection, another class is responsible for injecting dependencies into an object at runtime. Commonly and in my implementation, dependency injector create a new instance of a class and pass the dependency through the constructor or by setters. For example, Navigation of the page is injected to the mainappviewmodel by the app class. <br>
 
 4. Composite - Xamarin supports page creation with xaml markup language, that based on the composite pattern. XAML allows developers to define user interfaces in Xamarin.Forms applications using markup rather than code. XAML is often more visually coherent and more succinct than equivalent code. XAML is particularly well suited for use with the popular Model-View-ViewModel (MVVM) application architecture: XAML defines the View that is linked to ViewModel code through XAML-based data bindings.<br>
 
-5. Command - Xamarin also supports command binding, that means that function of the view element will be execute directly from the viewModel. This pattern is a part of the MVVM. <br>
+5. Command - Xamarin also supports command binding, that means that function of the view element will be execute directly from the viewModel. This pattern is a part of the MVVM. It means, that when event of the visual element raises, command, that has been binded to this element, starts execute.<br>
 
 6. Observer - ObservableCollections allow submission of view elements directly to viewModel resources. Then View will be able to observe all changes occurring with the connected collection. <br>
 
