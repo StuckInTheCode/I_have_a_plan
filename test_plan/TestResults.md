@@ -37,6 +37,11 @@ The number of successfully passed functional tests: 27 of 28
 
 The number of successfully completed non-functional tests: 3 of 3
 
+<br>
+Conclusion: 
+The application performs all its main functions. The appearance of the application is sufficiently consistent with the stated in the SRS. It is necessary to correct small errors associated with notifying the user about the correctness of the action. Current issues do not interfere with the use of the application.
+</br>
+
 
 
 > Written with [StackEdit](https://stackedit.io/).
